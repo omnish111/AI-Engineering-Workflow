@@ -1,0 +1,19 @@
+{
+  "version": "2.0",
+  "description": "Agent role status tracking",
+  "activeRoles": [],
+  "roleHistory": [
+    {
+      "task": "password_reset",
+      "roles": [
+        "planner",
+        "implementer",
+        "verifier",
+        "reviewer"
+      ],
+      "assignedAt": "2026-09-17T06:20:00Z",
+      "completedAt": "2026-09-17T06:37:00Z",
+      "status": "COMPLETED"
+    }
+  ]
+}

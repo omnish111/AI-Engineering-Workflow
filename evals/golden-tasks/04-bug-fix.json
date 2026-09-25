@@ -1,0 +1,19 @@
+{
+  "id": "GT-04",
+  "name": "Runtime Bug Fix",
+  "category": "bug-fix",
+  "description": "Fix uncaught null pointer exception when JWT token payload is malformed",
+  "expectedRoles": ["debugger", "implementer", "verifier"],
+  "forbiddenRoles": ["planner", "architect", "uiux"],
+  "expectedContextGroups": ["core", "bug-fix", "state"],
+  "maxAllowedContextFiles": 10,
+  "acceptanceCriteria": [
+    "Identify root cause of null payload",
+    "Add guard check and descriptive 401 error response",
+    "Add regression test preventing recurrence"
+  ],
+  "verificationExpectations": {
+    "type": "regression-test",
+    "mustPassExistingSuite": true
+  }
+}

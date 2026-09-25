@@ -1,0 +1,18 @@
+{
+  "id": "GT-10",
+  "name": "Deployment & Infrastructure Analysis",
+  "category": "deployment",
+  "description": "Evaluate Docker Compose multi-service setup and environment variable readiness",
+  "expectedRoles": ["planner", "implementer", "verifier"],
+  "forbiddenRoles": ["uiux"],
+  "expectedContextGroups": ["core", "deployment"],
+  "maxAllowedContextFiles": 5,
+  "acceptanceCriteria": [
+    "Verify docker-compose.yml configuration against tech-stack.md",
+    "Verify non-root user execution in containers",
+    "Verify no hardcoded secrets in deployment manifests"
+  ],
+  "verificationExpectations": {
+    "type": "manifest-audit"
+  }
+}

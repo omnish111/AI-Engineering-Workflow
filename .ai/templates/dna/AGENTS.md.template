@@ -1,0 +1,83 @@
+# {{PROJECT_NAME}} — Engineering Rules & Architecture
+
+This project was generated or onboarded by the AI Engineering Workflow Platform. It operates as an autonomous, self-sufficient codebase with its own embedded engineering DNA.
+
+## 1. Project Overview
+- **Name**: {{PROJECT_NAME}}
+- **Description**: {{PROJECT_DESCRIPTION}}
+- **Domain**: {{PROJECT_DOMAIN}}
+- **Mode**: {{PROJECT_MODE}} (Created / Onboarded)
+- **Primary Tech Stack**: {{TECH_STACK_SUMMARY}}
+
+## 2. Universal Agent Behavior
+1. **Source of Truth**: This `AGENTS.md` and `.ai/context/` are the authoritative sources of truth for conventions, architecture, and constraints.
+2. **Inspect Before Editing**: Always check existing code, styles, and configurations before writing new components or endpoints.
+3. **Preserve Conventions**: Match existing directory layout, naming patterns, state management, and styling systems. Never introduce random new paradigms or redundant libraries.
+4. **Clean Code & Security**: Validate all inputs, handle errors gracefully, never commit credentials or `.env` files, and follow the project's established auth/security guidelines.
+5. **Verify Before Completion**: Test code changes (unit tests, build checks, lints) before declaring tasks complete.
+
+## 3. Engineering Execution Protocol (MANDATORY)
+
+Every AI assistant or agent working on this codebase MUST follow this 5-step lifecycle for all tasks (features, bug fixes, refactors, or PRD implementations):
+
+1. **Step 1: Ingestion & Impact Analysis**
+   - Read the relevant source files before proposing any change.
+   - For new features or PRDs, identify impacted backend endpoints, database schemas, and frontend UI components.
+   - Check installed packages in `package.json` before introducing new libraries. Do not add redundant dependencies.
+
+2. **Step 2: Plan & User Approval Checkpoint (Discussion-First)**
+   - Present a clear Implementation Plan listing:
+     - Exact files to be created or modified.
+     - Architecture and data-flow implications.
+     - Potential risks and verification steps.
+   - **WAIT for explicit user approval ("go ahead", "approved") before editing any project files.**
+
+3. **Step 3: Phased Implementation (Inside-Out Pattern)**
+   - **Phase A (Data & API)**: Implement/update database models, controllers, and backend API routes.
+   - **Phase B (Client & UI)**: Implement UI components, state hooks, and styling following project conventions.
+   - Match existing component patterns, naming rules, and client libraries.
+
+4. **Step 4: Verification Gate (Evidence-Based)**
+   - Run tests: `{{TEST_COMMAND}}`
+   - Run build check: `{{BUILD_COMMAND}}`
+   - Only declare completion once build and tests pass with zero critical errors. Never claim tests ran without evidence.
+
+5. **Step 5: Durable State & Audit Logging**
+   - Log completed features and architectural changes in [.ai/state/decisions.json](.ai/state/decisions.json).
+   - If a roadmap milestone was finished, check it off in [.ai/improvements/roadmap.md](.ai/improvements/roadmap.md).
+
+## 4. Tech Stack & Environment
+- **Framework**: {{FRAMEWORK}}
+- **Language**: {{LANGUAGE}} (TypeScript / JavaScript)
+- **Styling**: {{STYLING}}
+- **Database**: {{DATABASE}}
+- **API Pattern**: {{API_PATTERN}}
+- **Package Manager**: {{PACKAGE_MANAGER}}
+
+## 5. Key Commands
+- **Dev Server**: `{{DEV_COMMAND}}`
+- **Build**: `{{BUILD_COMMAND}}`
+- **Lint**: `{{LINT_COMMAND}}`
+- **Test**: `{{TEST_COMMAND}}`
+
+## 6. Directory Structure
+```
+{{DIRECTORY_STRUCTURE}}
+```
+
+## 7. Project Context & Rules
+- **Workspace Rules**: [.agents/rules/](.agents/rules/)
+- **Execution Skills**: [.agents/skills/](.agents/skills/)
+- **Architecture Blueprint**: [.ai/context/architecture.md](.ai/context/architecture.md)
+- **Coding Rules**: [.ai/context/coding-rules.md](.ai/context/coding-rules.md)
+- **UI & Styling Guidelines**: [.ai/context/ui-guidelines.md](.ai/context/ui-guidelines.md)
+- **Naming Conventions**: [.ai/context/naming-rules.md](.ai/context/naming-rules.md)
+- **Orchestration & Worktree Policies**: [.ai/orchestration/](.ai/orchestration/)
+- **Strategic Research**: [.ai/research/](.ai/research/)
+- **Improvement Roadmap**: [.ai/improvements/roadmap.md](.ai/improvements/roadmap.md)
+- **Decisions Log**: [.ai/state/decisions.json](.ai/state/decisions.json)
+
+## 8. Connecting to Central AI Factory (Optional)
+This project is 100% self-sufficient. However, if you wish to run factory-level strategic upgrades, competitive benchmarks, or full audits:
+- Factory Location: `E:\AI Engineering Workflow`
+- Command: Run factory in **UPGRADE** or **AUDIT** mode targeting this folder path.

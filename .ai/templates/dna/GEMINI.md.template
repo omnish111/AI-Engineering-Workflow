@@ -1,0 +1,20 @@
+# Google Antigravity Rules — {{PROJECT_NAME}}
+
+Follow the shared rules defined in [AGENTS.md](AGENTS.md).
+Workspace rules are located in `.agents/rules/`.
+Skills are located in `.agents/skills/` (adapters pointing to canonical `.ai/skills/[name]/SKILL.md`).
+
+## Core Conventions
+- **Source of Truth**: [AGENTS.md](AGENTS.md)
+- **Workspace Rules**: [.agents/rules/](.agents/rules/)
+- **Architecture**: [.ai/context/architecture.md](.ai/context/architecture.md)
+- **Coding Rules**: [.ai/context/coding-rules.md](.ai/context/coding-rules.md)
+- **UI Guidelines**: [.ai/context/ui-guidelines.md](.ai/context/ui-guidelines.md)
+- **Settings**: [.ai/settings.json](.ai/settings.json)
+- **Orchestration**: [.ai/orchestration/](.ai/orchestration/)
+
+## V2 Skill Loading
+Skills use YAML frontmatter with `triggers` to determine when to activate.
+Load only the skills relevant to the current task — see `.ai/orchestration/context-manifest.json`.
+
+Before making changes, always inspect existing patterns in the codebase and verify against local tests/builds.

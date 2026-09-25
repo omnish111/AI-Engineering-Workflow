@@ -1,0 +1,280 @@
+{
+  "version": "2.0",
+  "description": "Task dependency graph (DAG) — machine-readable source of truth for all tasks",
+  "schema": {
+    "task": {
+      "id": "string (unique, e.g. TASK-001)",
+      "description": "string",
+      "type": "backend|frontend|database|testing|security|deployment|planning|review",
+      "role": "implementer|verifier|reviewer|planner|debugger|deployer",
+      "priority": "P0|P1|P2|P3",
+      "complexity": "S|M|L|XL",
+      "dependsOn": [
+        "array of task IDs"
+      ],
+      "context": [
+        "array of context file paths"
+      ],
+      "outputs": [
+        "array of expected output paths"
+      ],
+      "acceptanceCriteria": [
+        "array of criteria strings"
+      ],
+      "verification": {
+        "type": "test|manual|build|lint",
+        "command": "string (optional test command)"
+      },
+      "status": "PENDING|READY|IN_PROGRESS|VERIFYING|COMPLETED|FAILED|RETRYING|BLOCKED|HUMAN_REQUIRED",
+      "retryPolicy": {
+        "maxRetries": 3,
+        "backoff": "exponential",
+        "currentRetries": 0
+      },
+      "phase": "string (optional phase grouping)",
+      "assignedAt": null,
+      "completedAt": null,
+      "failureReason": null,
+      "verificationEvidence": null
+    }
+  },
+  "tasks": [
+    {
+      "id": "TASK-PWR-001",
+      "description": "Data Models, Entities & Repositories for Password Reset",
+      "type": "database",
+      "role": "implementer",
+      "priority": "P0",
+      "complexity": "M",
+      "dependsOn": [],
+      "context": [
+        ".ai/context/architecture-rules.md",
+        ".ai/context/coding-rules.md",
+        ".ai/skills/database/SKILL.md"
+      ],
+      "outputs": [
+        "codebase/backend/src/auth/entities/password-reset-token.entity.ts",
+        "codebase/backend/src/auth/repositories/password-reset-token.repository.ts",
+        "codebase/backend/src/auth/repositories/user.repository.ts"
+      ],
+      "acceptanceCriteria": [
+        "Define PasswordResetToken entity with email, hashedToken, expiresAt, isUsed, createdAt",
+        "Implement IPasswordResetTokenRepository with create, findValidToken, markAsUsed, invalidateUserTokens methods",
+        "Implement IUserRepository with findByEmail and updatePassword methods",
+        "Comply with Repository Pattern (services never touch data source directly)"
+      ],
+      "verification": {
+        "type": "test",
+        "command": "node --test codebase/backend/test/password-reset-repository.test.js"
+      },
+      "status": "COMPLETED",
+      "verificationEvidence": "Passed 3/3 repository unit tests (creation, hash lookup, invalidation, user update) with 0 errors.",
+      "retryPolicy": {
+        "maxRetries": 3,
+        "backoff": "exponential",
+        "currentRetries": 0
+      },
+      "phase": "phase-password-reset",
+      "completedAt": "2026-09-17T06:27:52.929Z"
+    },
+    {
+      "id": "TASK-PWR-002",
+      "description": "Password Reset Service with Cryptographic Token Generation and Verification",
+      "type": "backend",
+      "role": "implementer",
+      "priority": "P0",
+      "complexity": "M",
+      "dependsOn": [
+        "TASK-PWR-001"
+      ],
+      "context": [
+        ".ai/skills/security/SKILL.md",
+        ".ai/skills/backend/SKILL.md",
+        ".ai/context/coding-rules.md"
+      ],
+      "outputs": [
+        "codebase/backend/src/auth/services/password-reset.service.ts",
+        "codebase/backend/src/auth/services/email.service.ts"
+      ],
+      "acceptanceCriteria": [
+        "Generate cryptographically secure 32-byte hex token",
+        "Store SHA-256 hash of token in database",
+        "Enforce 15-minute token expiration",
+        "Return generic success message to prevent user enumeration attacks",
+        "Validate password strength (min 8 chars, uppercase, lowercase, number, special)",
+        "Hash new password using cryptographic salt and hash before updating",
+        "Mark token as used upon successful password reset"
+      ],
+      "verification": {
+        "type": "test",
+        "command": "node --test codebase/backend/test/password-reset-service.test.js"
+      },
+      "status": "COMPLETED",
+      "verificationEvidence": "Passed 6/6 service tests (token generation, enumeration prevention, password update, weak password rejection, single-use, expiration) with 0 errors.",
+      "retryPolicy": {
+        "maxRetries": 3,
+        "backoff": "exponential",
+        "currentRetries": 0
+      },
+      "phase": "phase-password-reset",
+      "completedAt": "2026-09-17T06:29:09.723Z"
+    },
+    {
+      "id": "TASK-PWR-003",
+      "description": "Password Reset Controller, DTOs & API Endpoints",
+      "type": "backend",
+      "role": "implementer",
+      "priority": "P0",
+      "complexity": "S",
+      "dependsOn": [
+        "TASK-PWR-002"
+      ],
+      "context": [
+        ".ai/skills/api/SKILL.md",
+        ".ai/skills/backend/SKILL.md",
+        ".ai/context/coding-rules.md"
+      ],
+      "outputs": [
+        "codebase/backend/src/auth/controllers/password-reset.controller.ts",
+        "codebase/backend/src/auth/dto/request-password-reset.dto.ts",
+        "codebase/backend/src/auth/dto/confirm-password-reset.dto.ts"
+      ],
+      "acceptanceCriteria": [
+        "POST /auth/password-reset/request endpoint accepting validated email",
+        "POST /auth/password-reset/confirm endpoint accepting validated token and new password",
+        "Input validation DTOs with clear error messages",
+        "Standardized HTTP responses with consistent error envelopes"
+      ],
+      "verification": {
+        "type": "test",
+        "command": "node --test codebase/backend/test/password-reset-controller.test.js"
+      },
+      "status": "COMPLETED",
+      "verificationEvidence": "Passed 6/6 controller tests (request 200, invalid email 400, missing email 400, confirm 200, invalid token 400, weak password 400) with 0 errors.",
+      "retryPolicy": {
+        "maxRetries": 3,
+        "backoff": "exponential",
+        "currentRetries": 0
+      },
+      "phase": "phase-password-reset",
+      "completedAt": "2026-09-17T06:30:34.537Z"
+    },
+    {
+      "id": "TASK-PWR-004",
+      "description": "End-to-End Automated Verification Test Suite",
+      "type": "testing",
+      "role": "verifier",
+      "priority": "P0",
+      "complexity": "M",
+      "dependsOn": [
+        "TASK-PWR-003"
+      ],
+      "context": [
+        ".ai/skills/testing/SKILL.md",
+        ".ai/skills/verification/SKILL.md"
+      ],
+      "outputs": [
+        "codebase/backend/test/password-reset.e2e.test.js"
+      ],
+      "acceptanceCriteria": [
+        "Test complete reset flow: request reset -> token generated -> confirm reset -> password updated",
+        "Test expired token rejection",
+        "Test reused token rejection",
+        "Test enumeration prevention (non-existent email returns generic success)",
+        "Test weak password rejection",
+        "100% test pass rate with execution evidence"
+      ],
+      "verification": {
+        "type": "test",
+        "command": "node --test codebase/backend/test/password-reset.e2e.test.js"
+      },
+      "status": "COMPLETED",
+      "verificationEvidence": "Passed 5/5 E2E tests (happy path auth, single-use token, enumeration defense, token invalidation, complexity validation). Total 20/20 test assertions across backend suite.",
+      "retryPolicy": {
+        "maxRetries": 3,
+        "backoff": "exponential",
+        "currentRetries": 0
+      },
+      "phase": "phase-password-reset",
+      "completedAt": "2026-09-17T06:33:40.425Z"
+    },
+    {
+      "id": "TASK-PWR-005",
+      "description": "Architecture & Security Compliance Review",
+      "type": "review",
+      "role": "reviewer",
+      "priority": "P0",
+      "complexity": "S",
+      "dependsOn": [
+        "TASK-PWR-004"
+      ],
+      "context": [
+        ".ai/skills/code-review/SKILL.md",
+        ".ai/skills/security/SKILL.md"
+      ],
+      "outputs": [
+        "doc/reviews/password-reset-review.md"
+      ],
+      "acceptanceCriteria": [
+        "Run validate-project.js to ensure zero architectural violations",
+        "Verify kebab-case naming, max file line lengths, class lengths",
+        "Verify OWASP compliance (no enumeration, timing-safe compare, no plaintext tokens)",
+        "Zero high/critical security findings"
+      ],
+      "verification": {
+        "type": "lint",
+        "command": "node .ai/scripts/validate-project.js"
+      },
+      "status": "COMPLETED",
+      "verificationEvidence": "Passed validate-project.js with 0 violations. Full review report documented in doc/reviews/password-reset-review.md.",
+      "retryPolicy": {
+        "maxRetries": 3,
+        "backoff": "exponential",
+        "currentRetries": 0
+      },
+      "phase": "phase-password-reset",
+      "completedAt": "2026-09-17T06:36:32.206Z"
+    }
+  ],
+  "phases": [
+    {
+      "id": "phase-password-reset",
+      "name": "Password Reset Feature Implementation",
+      "status": "COMPLETED"
+    }
+  ],
+  "validTransitions": {
+    "PENDING": [
+      "READY"
+    ],
+    "READY": [
+      "IN_PROGRESS"
+    ],
+    "IN_PROGRESS": [
+      "VERIFYING",
+      "FAILED"
+    ],
+    "VERIFYING": [
+      "COMPLETED",
+      "FAILED"
+    ],
+    "COMPLETED": [],
+    "FAILED": [
+      "RETRYING",
+      "BLOCKED",
+      "HUMAN_REQUIRED"
+    ],
+    "RETRYING": [
+      "IN_PROGRESS"
+    ],
+    "BLOCKED": [
+      "READY",
+      "HUMAN_REQUIRED"
+    ],
+    "HUMAN_REQUIRED": [
+      "READY",
+      "BLOCKED"
+    ]
+  },
+  "lastUpdated": "2026-09-17T06:36:32.211Z"
+}

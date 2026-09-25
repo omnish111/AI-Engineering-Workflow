@@ -1,0 +1,30 @@
+# Coding Rules & Conventions — {{PROJECT_NAME}}
+
+## 1. Code Quality Principles
+- **Readability Over Cleverness**: Write clean, explicit, self-documenting code.
+- **Type Safety**: Strictly avoid `any` in TypeScript. Define interfaces or types for all domain models, API payloads, and component props.
+- **Single Responsibility**: Each function, hook, or component must have a single clear concern. Keep files under 250 lines when feasible.
+
+## 2. Naming Conventions
+- **Files & Folders**: 
+  - React Components: `PascalCase.tsx` or `kebab-case.tsx` matching codebase convention (Detected: `{{COMPONENT_NAMING}}`)
+  - Utilities/Services: `camelCase.ts` or `kebab-case.ts`
+  - Routes: Matching framework convention (e.g. Next.js App Router `app/[route]/page.tsx`)
+- **Variables & Functions**: `camelCase`
+- **Constants**: `UPPER_SNAKE_CASE`
+- **Types & Interfaces**: `PascalCase`
+
+## 3. Error Handling
+- Never swallow errors silently in catch blocks.
+- Wrap async calls in structured `try/catch` blocks with clear error logs.
+- Provide user-friendly error banners or toast notifications in the UI; never expose raw stack traces to end users.
+
+## 4. UI & Styling Rules
+- **CSS / Styling Framework**: {{STYLING}}
+- Follow responsive mobile-first patterns.
+- Ensure all interactive elements have hover/active states, accessible labels, and clear contrast.
+- Avoid hardcoded magic colors; use project theme tokens / variables.
+
+## 5. Testing & Verification
+- Verify all changes before committing.
+- Run `{{TEST_COMMAND}}` and `{{BUILD_COMMAND}}` to ensure zero regressions.

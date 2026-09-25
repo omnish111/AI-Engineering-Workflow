@@ -1,0 +1,19 @@
+{
+  "id": "GT-02",
+  "name": "Backend CRUD Endpoint",
+  "category": "backend",
+  "description": "Implement CRUD endpoints for project workspace settings",
+  "expectedRoles": ["planner", "implementer", "verifier", "reviewer"],
+  "forbiddenRoles": ["uiux", "deployment"],
+  "expectedContextGroups": ["core", "backend", "database", "testing"],
+  "maxAllowedContextFiles": 8,
+  "acceptanceCriteria": [
+    "Repository pattern strictly adhered to",
+    "DTO validation for request payloads",
+    "Layered architecture (controller -> service -> repo)"
+  ],
+  "verificationExpectations": {
+    "type": "unit-and-e2e-test",
+    "minTestCount": 4
+  }
+}

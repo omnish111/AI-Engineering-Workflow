@@ -1,0 +1,19 @@
+{
+  "id": "GT-08",
+  "name": "Ambiguous Requirement Handling",
+  "category": "decision",
+  "description": "Handle conflicting PRD requirement on OAuth provider vs local DB auth",
+  "expectedRoles": ["planner"],
+  "forbiddenRoles": ["implementer"],
+  "expectedContextGroups": ["core", "planning"],
+  "maxAllowedContextFiles": 8,
+  "acceptanceCriteria": [
+    "Identify ambiguity using decision-policy.json thresholds",
+    "Confidence score below 0.60 triggers human checkpoint",
+    "No premature code generation before requirement clarification"
+  ],
+  "verificationExpectations": {
+    "type": "checkpoint-trigger-check",
+    "expectHumanCheckpoint": true
+  }
+}

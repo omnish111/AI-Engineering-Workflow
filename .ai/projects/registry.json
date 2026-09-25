@@ -1,0 +1,50 @@
+{
+  "version": "2.1",
+  "description": "Multi-project registry tracking factory-managed, newly created, and onboarded external codebases",
+  "activeProjectId": "amran-yuva-2",
+  "projects": {
+    "amran-yuva-2": {
+      "id": "amran-yuva-2",
+      "name": "Amran Yuva Group",
+      "description": "Bilingual community platform for Amran village with 3D immersive web experience, transparency records, volunteer intake, and admin portal.",
+      "mode": "created",
+      "path": "E:/amran-yuva-2",
+      "techStack": {
+        "frontend": "Next.js 16 + React 19 + TypeScript + Tailwind CSS 4.x + R3F + GSAP",
+        "backend": "Express.js + TypeScript",
+        "database": "MongoDB 8.x (Mongoose)",
+        "styling": "Tailwind CSS 4.x + shadcn/ui"
+      },
+      "stateDir": "E:/amran-yuva-2/.ai/state",
+      "createdAt": "2026-09-25T10:00:00Z",
+      "lastActiveAt": "2026-09-25T10:07:00Z"
+    },
+    "default-saas": {
+      "id": "default-saas",
+      "name": "AI Engineering Workflow (Core)",
+      "description": "Primary AI Engineering Workflow platform workspace",
+      "mode": "factory",
+      "path": "E:/AI Engineering Workflow",
+      "stateDir": ".ai/state",
+      "telemetryDir": ".ai/telemetry",
+      "createdAt": "2026-05-25T00:00:00Z",
+      "lastActiveAt": "2026-09-23T18:30:00.000Z"
+    },
+    "elitecard": {
+      "id": "elitecard",
+      "name": "EliteCard",
+      "description": "NFC & Digital Business Card Platform with Card Builder, QR generation, and Analytics",
+      "mode": "onboarded",
+      "path": "E:/EliteCard",
+      "techStack": {
+        "frontend": "React 18 + Vite",
+        "backend": "Node.js Express",
+        "database": "MongoDB (Mongoose)",
+        "styling": "Tailwind CSS"
+      },
+      "stateDir": "E:/EliteCard/.ai/state",
+      "createdAt": "2026-09-24T00:38:00Z",
+      "lastActiveAt": "2026-09-23T19:10:52.613Z"
+    }
+  }
+}

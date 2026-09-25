@@ -1,0 +1,95 @@
+{
+  "version": "2.0",
+  "description": "Registry of available agent roles and their capabilities",
+  "roles": {
+    "orchestrator": {
+      "description": "Coordinates task execution, selects roles, manages workflow",
+      "skills": ["project-init", "prd-analysis"],
+      "activationCriteria": "Always active as entry point",
+      "canParallelize": false
+    },
+    "planner": {
+      "description": "Analyzes requirements, decomposes into tasks, generates DAG",
+      "skills": ["planning", "prd-analysis", "architecture"],
+      "activationCriteria": "New project, new feature, major refactor",
+      "canParallelize": false
+    },
+    "researcher": {
+      "description": "Investigates technical questions, evaluates options",
+      "skills": ["architecture", "security", "database"],
+      "activationCriteria": "Ambiguous technical decision, new technology evaluation",
+      "canParallelize": true
+    },
+    "architect": {
+      "description": "Designs system architecture, defines patterns and contracts",
+      "skills": ["architecture", "database", "api", "security"],
+      "activationCriteria": "Complex feature requiring architectural decisions",
+      "canParallelize": false
+    },
+    "implementer": {
+      "description": "Writes application code following established patterns",
+      "skills": ["backend", "frontend", "database", "api", "docker"],
+      "activationCriteria": "Code changes required",
+      "canParallelize": true,
+      "parallelizationNote": "Backend and frontend can run in parallel when independent"
+    },
+    "verifier": {
+      "description": "Validates changes through testing and quality gates",
+      "skills": ["testing", "verification", "code-review"],
+      "activationCriteria": "After implementation, before marking task complete",
+      "canParallelize": false
+    },
+    "reviewer": {
+      "description": "Evaluates architecture, quality, security, and maintainability",
+      "skills": ["code-review", "security", "architecture"],
+      "activationCriteria": "Complex features, security-sensitive changes, architectural changes",
+      "canParallelize": false
+    },
+    "debugger": {
+      "description": "Investigates and resolves errors, failures, and regressions",
+      "skills": ["debugging", "bug-fix", "testing"],
+      "activationCriteria": "Bug report, test failure, runtime error",
+      "canParallelize": false
+    },
+    "deployer": {
+      "description": "Manages deployment, CI/CD, and infrastructure configuration",
+      "skills": ["deployment", "docker", "git"],
+      "activationCriteria": "Deployment preparation, CI/CD changes, infrastructure work",
+      "canParallelize": false
+    },
+    "strategic-researcher": {
+      "description": "Performs 5D strategic intelligence: competitive landscape, UX trends, tech evaluation, and failure risks",
+      "skills": ["strategic-research", "architecture", "uiux"],
+      "activationCriteria": "New product discovery, market research, or codebase onboarding",
+      "canParallelize": true
+    },
+    "onboarder": {
+      "description": "Scans existing external codebases, extracts architecture, and embeds portable engineering DNA",
+      "skills": ["onboard-project", "strategic-research", "architecture"],
+      "activationCriteria": "Adopting, scanning, or importing an existing codebase",
+      "canParallelize": false
+    },
+    "upgrader": {
+      "description": "Audits existing project DNA against modern industry evolutions and formulates upgrade plans",
+      "skills": ["upgrade-project", "architecture", "security"],
+      "activationCriteria": "Project upgrade or modernization request",
+      "canParallelize": false
+    }
+  },
+  "taskTypeToRoles": {
+    "simple-fix": ["implementer", "verifier"],
+    "bug-fix": ["debugger", "implementer", "verifier"],
+    "feature": ["planner", "implementer", "verifier", "reviewer"],
+    "complex-feature": ["planner", "architect", "implementer", "verifier", "reviewer"],
+    "deployment": ["deployer", "verifier"],
+    "refactor": ["implementer", "verifier", "reviewer"],
+    "planning": ["planner"],
+    "security-change": ["planner", "implementer", "verifier", "reviewer"],
+    "database-change": ["planner", "implementer", "verifier"],
+    "onboard": ["onboarder", "strategic-researcher", "reviewer"],
+    "strategic-research": ["strategic-researcher"],
+    "upgrade": ["upgrader", "implementer", "verifier"],
+    "audit": ["reviewer", "verifier", "upgrader"]
+  }
+}
+

@@ -1,0 +1,19 @@
+{
+  "id": "GT-07",
+  "name": "Independent Parallel Work",
+  "category": "parallel",
+  "description": "Simultaneously implement backend user export and frontend profile modal",
+  "expectedRoles": ["implementer", "verifier"],
+  "forbiddenRoles": [],
+  "expectedContextGroups": ["core", "backend", "frontend", "testing"],
+  "maxAllowedContextFiles": 8,
+  "acceptanceCriteria": [
+    "Tasks operate on completely disjoint output files",
+    "Parallel policy validates zero write-path collisions",
+    "Independent git worktrees or subagents dispatched safely"
+  ],
+  "verificationExpectations": {
+    "type": "parallel-safety-check",
+    "zeroFileCollisions": true
+  }
+}

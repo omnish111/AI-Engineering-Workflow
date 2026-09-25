@@ -1,0 +1,87 @@
+{
+  "version": "2.0",
+  "lastDiscovered": "2026-09-17T07:15:11.916Z",
+  "inventory": {
+    "skillsCount": 20,
+    "contextRulesCount": 6,
+    "docsCount": 4,
+    "backendFilesCount": 13,
+    "frontendFilesCount": 0,
+    "testFilesCount": 4
+  },
+  "discoveredGroups": {
+    "backend": {
+      "description": "Backend implementation and services context",
+      "files": [
+        ".ai/skills/backend/SKILL.md",
+        ".ai/context/coding-rules.md",
+        ".ai/context/architecture-rules.md"
+      ]
+    },
+    "frontend": {
+      "description": "Frontend UI and client components context",
+      "files": [
+        ".ai/skills/frontend/SKILL.md",
+        ".ai/context/ui-guidelines.md",
+        ".ai/context/coding-rules.md"
+      ]
+    },
+    "database": {
+      "description": "Database models, entities and repositories context",
+      "files": [
+        ".ai/skills/database/SKILL.md",
+        ".ai/context/architecture-rules.md"
+      ]
+    },
+    "security": {
+      "description": "Security rules, authentication and auditing context",
+      "files": [
+        ".ai/skills/security/SKILL.md",
+        ".ai/context/coding-rules.md"
+      ]
+    },
+    "testing": {
+      "description": "Test execution, suites and coverage rules",
+      "files": [
+        ".ai/skills/testing/SKILL.md",
+        ".ai/context/coding-rules.md"
+      ]
+    },
+    "planning": {
+      "description": "Planning, architecture and PRD requirements",
+      "files": [
+        ".ai/skills/planning/SKILL.md",
+        ".ai/skills/architecture/SKILL.md",
+        ".ai/context/architecture-rules.md",
+        ".ai/context/tech-stack.md",
+        "doc/prd.md"
+      ]
+    },
+    "review": {
+      "description": "Code review and verification guidelines",
+      "files": [
+        ".ai/skills/code-review/SKILL.md",
+        ".ai/skills/verification/SKILL.md",
+        ".ai/context/coding-rules.md",
+        ".ai/context/architecture-rules.md"
+      ]
+    },
+    "deployment": {
+      "description": "Deployment, containers and infrastructure rules",
+      "files": [
+        ".ai/skills/deployment/SKILL.md",
+        ".ai/skills/docker/SKILL.md",
+        ".ai/context/tech-stack.md"
+      ]
+    },
+    "bug-fix": {
+      "description": "Bug debugging and regression context",
+      "files": [
+        ".ai/skills/bug-fix/SKILL.md",
+        ".ai/skills/debugging/SKILL.md",
+        ".ai/skills/testing/SKILL.md",
+        ".ai/context/coding-rules.md"
+      ]
+    }
+  }
+}

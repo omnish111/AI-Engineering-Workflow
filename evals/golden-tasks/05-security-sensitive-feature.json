@@ -1,0 +1,19 @@
+{
+  "id": "GT-05",
+  "name": "Security-Sensitive Feature",
+  "category": "security",
+  "description": "Add rate limiting on authentication routes and timing-safe comparison",
+  "expectedRoles": ["planner", "implementer", "verifier", "reviewer"],
+  "forbiddenRoles": ["uiux"],
+  "expectedContextGroups": ["core", "security", "backend", "testing", "review"],
+  "maxAllowedContextFiles": 10,
+  "acceptanceCriteria": [
+    "Rate limiter configured for 5 requests per minute on /auth endpoints",
+    "timingSafeEqual used for hash comparisons",
+    "Zero plaintext secrets in logging"
+  ],
+  "verificationExpectations": {
+    "type": "security-audit-and-test",
+    "zeroHighVulnerabilities": true
+  }
+}

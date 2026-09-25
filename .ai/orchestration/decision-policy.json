@@ -1,0 +1,81 @@
+{
+  "version": "2.0",
+  "description": "Decision policy for adaptive Ask vs Act behavior",
+  "policy": {
+    "act_immediately": {
+      "description": "Known decisions that can be made autonomously",
+      "conditions": [
+        "Answer is explicitly stated in PRD",
+        "Answer is defined in .ai/settings.json",
+        "Answer is defined in existing codebase configuration",
+        "Answer follows an established project convention",
+        "Action is reversible and low-risk"
+      ],
+      "examples": [
+        "File naming convention (defined in coding-rules)",
+        "Module structure pattern (defined in architecture-rules)",
+        "Test file location (defined in testing skill)",
+        "Import organization (defined in coding-rules)"
+      ]
+    },
+    "infer_and_act": {
+      "description": "High-confidence inferences from available context",
+      "minimumConfidence": 0.85,
+      "conditions": [
+        "PRD implies the answer with high confidence",
+        "Existing codebase patterns clearly suggest the answer",
+        "Tech stack constraints limit options to one viable choice",
+        "Industry best practices strongly favor one option"
+      ],
+      "examples": [
+        "Database choice when PRD specifies document-based data (→ MongoDB)",
+        "Multi-tenancy when PRD mentions organizations/teams (→ multi-tenant)",
+        "Real-time when PRD mentions live updates (→ WebSockets)",
+        "Caching when PRD mentions high-traffic endpoints (→ Redis)"
+      ],
+      "requirement": "Log the inference in decisions.json with confidence and source"
+    },
+    "research_first": {
+      "description": "Uncertain but researchable without user input",
+      "conditions": [
+        "Multiple viable options exist",
+        "Answer can be determined by reading existing code",
+        "Answer can be determined by analyzing dependencies",
+        "Technical feasibility needs investigation"
+      ],
+      "examples": [
+        "Best pagination strategy for a specific query pattern",
+        "Whether a library supports a required feature",
+        "Performance implications of a design choice"
+      ]
+    },
+    "ask_user": {
+      "description": "Genuinely ambiguous or high-risk decisions requiring user input",
+      "conditions": [
+        "Requirement is genuinely ambiguous (multiple valid interpretations)",
+        "High-risk architectural decision with irreversible consequences",
+        "Destructive or irreversible action required",
+        "Credentials or secrets needed",
+        "Production-impacting action requiring approval",
+        "Business logic decision that cannot be inferred from technical context"
+      ],
+      "examples": [
+        "Git repository strategy (single vs multi-repo)",
+        "Payment provider selection",
+        "Production deployment approval",
+        "Credential configuration",
+        "Ambiguous business requirement"
+      ]
+    }
+  },
+  "decisionLogSchema": {
+    "id": "string (UUID)",
+    "decision": "string (what was decided)",
+    "confidence": "number (0.0-1.0)",
+    "source": "string (prd|settings|codebase|inference|user)",
+    "reason": "string (why this decision was made)",
+    "reversible": "boolean",
+    "approvalRequired": "boolean",
+    "timestamp": "string (ISO 8601)"
+  }
+}

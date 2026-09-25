@@ -1,0 +1,18 @@
+{
+  "id": "GT-06",
+  "name": "Database Schema Change",
+  "category": "database",
+  "description": "Add index on user email and soft-delete column to entities",
+  "expectedRoles": ["planner", "implementer", "verifier"],
+  "forbiddenRoles": ["uiux", "deployment"],
+  "expectedContextGroups": ["core", "database", "backend", "testing"],
+  "maxAllowedContextFiles": 7,
+  "acceptanceCriteria": [
+    "Database entity updated with deletedAt timestamp",
+    "Repository methods filter out soft-deleted records by default",
+    "Index defined in schema"
+  ],
+  "verificationExpectations": {
+    "type": "database-migration-test"
+  }
+}

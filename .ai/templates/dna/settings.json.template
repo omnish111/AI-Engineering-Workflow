@@ -1,0 +1,29 @@
+{
+  "projectId": "{{PROJECT_ID}}",
+  "projectName": "{{PROJECT_NAME}}",
+  "version": "1.0.0",
+  "mode": "{{PROJECT_MODE}}",
+  "createdAt": "{{CREATED_AT}}",
+  "lastUpdated": "{{LAST_UPDATED}}",
+  "techStack": {
+    "framework": "{{FRAMEWORK}}",
+    "language": "{{LANGUAGE}}",
+    "styling": "{{STYLING}}",
+    "database": "{{DATABASE}}",
+    "orm": "{{ORM}}",
+    "packageManager": "{{PACKAGE_MANAGER}}"
+  },
+  "scripts": {
+    "dev": "{{DEV_COMMAND}}",
+    "build": "{{BUILD_COMMAND}}",
+    "test": "{{TEST_COMMAND}}",
+    "lint": "{{LINT_COMMAND}}"
+  },
+  "ports": {
+    "dev": "{{DEV_PORT}}"
+  },
+  "factory": {
+    "origin": "AI Engineering Workflow",
+    "factoryPath": "e:\\AI Engineering Workflow"
+  }
+}

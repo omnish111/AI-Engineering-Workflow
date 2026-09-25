@@ -1,0 +1,26 @@
+{
+  "cadence": "daily",
+  "executedAt": "2026-09-17T07:13:18.377Z",
+  "durationMs": 3,
+  "totalChecks": 3,
+  "passed": 3,
+  "warnings": 0,
+  "failures": 0,
+  "results": [
+    {
+      "id": "inspect-unresolved-blockers",
+      "status": "OK",
+      "detail": "0 active blocker(s) found"
+    },
+    {
+      "id": "detect-stale-tasks",
+      "status": "OK",
+      "detail": "0 stale task(s) detected (>24h threshold)"
+    },
+    {
+      "id": "verify-state-consistency",
+      "status": "OK",
+      "detail": "All state files valid & consistent"
+    }
+  ]
+}

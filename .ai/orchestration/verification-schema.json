@@ -1,0 +1,55 @@
+{
+  "version": "2.0",
+  "description": "Verification evidence schema for task completion proof",
+  "schema": {
+    "taskId": "string",
+    "verifiedAt": "string (ISO 8601)",
+    "verifiedBy": "string (role name)",
+    "status": "PASSED|FAILED",
+    "evidence": {
+      "commandsExecuted": [
+        {
+          "command": "string",
+          "exitCode": "number",
+          "stdout": "string (truncated)",
+          "stderr": "string (truncated)"
+        }
+      ],
+      "testsRun": "number",
+      "testsPassed": "number",
+      "testsFailed": "number",
+      "testDetails": [
+        {
+          "suite": "string",
+          "test": "string",
+          "status": "PASSED|FAILED",
+          "duration": "number (ms)"
+        }
+      ],
+      "filesChanged": ["string (relative paths)"],
+      "acceptanceCriteria": [
+        {
+          "criterion": "string",
+          "status": "PASSED|FAILED|SKIPPED",
+          "evidence": "string (optional)"
+        }
+      ],
+      "lintResults": {
+        "violations": "number",
+        "warnings": "number"
+      },
+      "buildResult": {
+        "success": "boolean",
+        "errors": ["string"]
+      }
+    },
+    "failures": [
+      {
+        "type": "string (test|build|lint|runtime)",
+        "description": "string",
+        "file": "string (optional)",
+        "line": "number (optional)"
+      }
+    ]
+  }
+}

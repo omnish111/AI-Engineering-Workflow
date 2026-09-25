@@ -1,0 +1,21 @@
+{
+  "id": "GT-03",
+  "name": "Authentication & Password Reset",
+  "category": "security",
+  "description": "Implement password reset token generation, expiration, and confirmation",
+  "expectedRoles": ["planner", "implementer", "verifier", "reviewer"],
+  "forbiddenRoles": ["uiux", "deployment"],
+  "expectedContextGroups": ["core", "backend", "security", "testing"],
+  "maxAllowedContextFiles": 8,
+  "acceptanceCriteria": [
+    "Generate 32-byte cryptographic token",
+    "SHA-256 token hashing in repository",
+    "User enumeration prevention",
+    "15-minute expiration window",
+    "Single-use token invalidation"
+  ],
+  "verificationExpectations": {
+    "type": "unit-and-e2e-test",
+    "minTestCount": 5
+  }
+}

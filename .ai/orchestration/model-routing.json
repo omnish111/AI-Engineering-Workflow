@@ -1,0 +1,62 @@
+{
+  "version": "2.0",
+  "description": "Provider-agnostic abstract model routing policy and tier mappings",
+  "tiers": {
+    "fast": {
+      "description": "High-throughput, low-latency model for simple fixes, typos, formatting, and doc updates",
+      "targetLatencyMs": 1500,
+      "costWeight": 1,
+      "recommendedModels": ["gemini-2.5-flash", "claude-3-5-haiku", "gpt-4o-mini"],
+      "fallbackTier": "standard"
+    },
+    "standard": {
+      "description": "Balanced reasoning and code generation for normal features, CRUD, and unit test authoring",
+      "targetLatencyMs": 4000,
+      "costWeight": 3,
+      "recommendedModels": ["gemini-2.5-pro", "claude-3-5-sonnet", "gpt-4o"],
+      "fallbackTier": "fast"
+    },
+    "strong": {
+      "description": "Deep architectural reasoning, planning, complex refactoring, and multi-module coordination",
+      "targetLatencyMs": 8000,
+      "costWeight": 8,
+      "recommendedModels": ["claude-3-7-sonnet-thinking", "gemini-3.7-thinking", "o3-mini"],
+      "fallbackTier": "standard"
+    },
+    "critical": {
+      "description": "Highest rigor for security vulnerabilities, cryptographic protocols, root-cause debugging of hard failures",
+      "targetLatencyMs": 15000,
+      "costWeight": 15,
+      "recommendedModels": ["claude-opus", "o1", "gemini-ultra"],
+      "fallbackTier": "strong"
+    }
+  },
+  "typeTierDefaults": {
+    "simple-fix": "fast",
+    "documentation": "fast",
+    "formatting": "fast",
+    "backend": "standard",
+    "frontend": "standard",
+    "database": "standard",
+    "testing": "standard",
+    "feature": "standard",
+    "planning": "strong",
+    "architecture": "strong",
+    "refactor": "strong",
+    "complex-feature": "strong",
+    "security": "critical",
+    "security-audit": "critical",
+    "deep-debugging": "critical"
+  },
+  "complexityTierMultipliers": {
+    "S": 0,
+    "M": 0,
+    "L": 1,
+    "XL": 2
+  },
+  "escalationRules": {
+    "onTaskRetry": "Promote tier by 1 level if task previously failed (e.g. standard -> strong)",
+    "onSecuritySensitive": "Promote to critical tier if task modifies auth, encryption, or permissions",
+    "onHighUncertainty": "Promote to strong if decision confidence < 0.75"
+  }
+}

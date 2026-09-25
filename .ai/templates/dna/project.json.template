@@ -1,0 +1,18 @@
+{
+  "id": "{{PROJECT_ID}}",
+  "name": "{{PROJECT_NAME}}",
+  "version": "1.0.0",
+  "status": "ACTIVE",
+  "mode": "{{PROJECT_MODE}}",
+  "health": "GOOD",
+  "metrics": {
+    "totalFiles": {{TOTAL_FILES}},
+    "linesOfCode": {{TOTAL_LOC}},
+    "lastScanDate": "{{LAST_UPDATED}}"
+  },
+  "modules": {{MODULES_LIST}},
+  "roadmapSummary": {
+    "pendingImprovements": {{PENDING_IMPROVEMENTS_COUNT}},
+    "completedMilestones": 0
+  }
+}

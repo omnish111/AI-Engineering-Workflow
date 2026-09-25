@@ -1,0 +1,81 @@
+{
+  "version": "2.0",
+  "description": "Human checkpoint policy — defines autonomous vs ask-user actions",
+  "autonomous": {
+    "description": "Actions the agent may perform without asking",
+    "actions": [
+      "Read any file in the repository",
+      "Edit source code files",
+      "Create new source code files",
+      "Format code",
+      "Run safe tests (unit, integration)",
+      "Run safe local commands (build, lint, type-check)",
+      "Create documentation",
+      "Analyze code",
+      "Create git branches",
+      "Create git worktrees (when supported)",
+      "Run validation scripts",
+      "Update state files (.ai/state/)",
+      "Update project management files",
+      "Install npm dependencies",
+      "Run database seeders in development",
+      "Create or modify .env.example files"
+    ]
+  },
+  "askUserBefore": {
+    "description": "Actions requiring explicit user approval",
+    "actions": [
+      {
+        "action": "Destructive database actions",
+        "reason": "Data loss risk",
+        "severity": "CRITICAL"
+      },
+      {
+        "action": "Production deployment",
+        "reason": "Production stability",
+        "severity": "CRITICAL"
+      },
+      {
+        "action": "Credential or secret changes",
+        "reason": "Security risk",
+        "severity": "CRITICAL"
+      },
+      {
+        "action": "Destructive filesystem operations (rm -rf, format)",
+        "reason": "Data loss risk",
+        "severity": "CRITICAL"
+      },
+      {
+        "action": "Payment-critical code changes",
+        "reason": "Financial risk",
+        "severity": "HIGH"
+      },
+      {
+        "action": "Breaking API changes (removing/renaming endpoints)",
+        "reason": "Client compatibility",
+        "severity": "HIGH"
+      },
+      {
+        "action": "Irreversible external actions (sending emails, API calls)",
+        "reason": "Cannot undo",
+        "severity": "HIGH"
+      },
+      {
+        "action": "Major architecture decisions not covered by PRD",
+        "reason": "Strategic impact",
+        "severity": "MEDIUM"
+      },
+      {
+        "action": "Modifying .env files with real credentials",
+        "reason": "Security risk",
+        "severity": "HIGH"
+      },
+      {
+        "action": "Git force push",
+        "reason": "History loss risk",
+        "severity": "HIGH"
+      }
+    ]
+  },
+  "objective": "Maximum safe autonomy with minimum unnecessary interruptions"
+}

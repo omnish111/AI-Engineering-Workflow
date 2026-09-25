@@ -1,0 +1,25 @@
+# Architecture Blueprint — {{PROJECT_NAME}}
+
+## 1. System Overview
+{{PROJECT_DESCRIPTION}}
+
+- **Architecture Style**: {{ARCHITECTURE_STYLE}}
+- **Deployment Model**: {{DEPLOYMENT_MODEL}}
+
+## 2. Component Boundaries & Layers
+{{COMPONENT_BOUNDARIES}}
+
+## 3. Data Flow & State Management
+- **Client State**: {{CLIENT_STATE_PATTERN}}
+- **Server Communication**: {{SERVER_COMMUNICATION_PATTERN}}
+- **Data Persistence**: {{PERSISTENCE_PATTERN}}
+
+## 4. API & Route Conventions
+- **Base Paths**: {{API_BASE_PATHS}}
+- **Auth Strategy**: {{AUTH_STRATEGY}}
+- **Error Format**: JSON response `{ success: boolean, message: string, data?: any, error?: any }`
+
+## 5. Security & Isolation
+- Never expose sensitive keys in client bundles.
+- Validate all route parameters and request payloads using strict schemas (Zod, Joi, or DTOs).
+- Maintain proper CORS and rate-limiting policies.

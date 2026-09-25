@@ -1,0 +1,45 @@
+{
+  "version": "2.0",
+  "description": "Manual overrides and curated routing rules for context manifest",
+  "manualContextGroups": {
+    "core": {
+      "description": "Always loaded for any task",
+      "files": [
+        ".ai/settings.json",
+        ".ai/state/project.json"
+      ]
+    },
+    "state": {
+      "description": "Task and project state (loaded when resuming or tracking)",
+      "files": [
+        ".ai/state/tasks.json",
+        ".ai/state/blockers.json",
+        ".ai/state/decisions.json"
+      ]
+    }
+  },
+  "taskTypeToContextGroups": {
+    "simple-fix": ["core", "backend"],
+    "bug-fix": ["core", "bug-fix", "state"],
+    "feature": ["core", "planning", "backend", "testing"],
+    "complex-feature": ["core", "planning", "backend", "frontend", "database", "security", "testing"],
+    "deployment": ["core", "deployment"],
+    "refactor": ["core", "backend", "testing", "review"],
+    "planning": ["core", "planning"],
+    "security-change": ["core", "security", "backend", "testing", "review"],
+    "database-change": ["core", "database", "backend", "testing"]
+  },
+  "pinnedFiles": [
+    ".ai/settings.json",
+    ".ai/state/project.json",
+    ".ai/context/coding-rules.md",
+    ".ai/context/architecture-rules.md"
+  ],
+  "excludedPatterns": [
+    "node_modules/**",
+    ".git/**",
+    "dist/**",
+    "build/**",
+    "*.log"
+  ]
+}

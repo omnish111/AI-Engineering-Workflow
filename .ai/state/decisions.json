@@ -1,0 +1,35 @@
+{
+  "version": "2.0",
+  "description": "Machine-readable decision log",
+  "decisions": [
+    {
+      "id": "DEC-001",
+      "timestamp": "2026-09-17T06:20:00Z",
+      "topic": "password_reset_architecture",
+      "category": "security",
+      "confidence": 0.95,
+      "policyAction": "ACT_IMMEDIATELY",
+      "decision": "Use cryptographically secure 32-byte hex token, SHA-256 hashed in database, with 15-minute expiration and single-use invalidation. Enforce generic response on reset request to prevent user enumeration.",
+      "rationale": "Follows OWASP authentication and credential reset recommendations and .ai/skills/security/SKILL.md specifications.",
+      "alternatives": [
+        "Plain text token (rejected: severe vulnerability if DB compromised)",
+        "Long expiration time > 1hr (rejected: exceeds security window)",
+        "Reveal non-existent user email (rejected: enables account enumeration)"
+      ]
+    },
+    {
+      "id": "DEC-002",
+      "timestamp": "2026-09-25T17:42:00Z",
+      "topic": "restore_execution_first_workflow_and_full_dna_stamping",
+      "category": "architecture",
+      "confidence": 0.98,
+      "policyAction": "ACT_IMMEDIATELY",
+      "decision": "Streamlined project-init to direct build-first scaffolding and inside-out UI development; updated dna-stamper.js to copy full 155-line coding-rules.md and 195-line ui-guidelines.md instead of 30-line templates; pruned meta-skill prompt adapters from .agents/skills to eliminate context distraction; streamlined AGENTS.md primary workflows.",
+      "rationale": "Audit revealed that new projects generated inferior UI due to template dilution (30-line stubs replacing full rules) and mandatory competitor research interrupting build momentum. This restores peak Sep 17 build velocity while retaining self-sufficient project DNA.",
+      "alternatives": [
+        "Revert completely to Sep 17 (rejected: loses multi-project portable DNA benefits)",
+        "Keep 5D research mandatory (rejected: slows builds and degrades output quality)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "GT-01",
+  "name": "Simple Frontend Change",
+  "category": "frontend",
+  "description": "Update primary brand color and button hover states in client UI",
+  "expectedRoles": ["implementer", "verifier"],
+  "forbiddenRoles": ["planner", "architect", "database", "security"],
+  "expectedContextGroups": ["core", "frontend"],
+  "maxAllowedContextFiles": 5,
+  "acceptanceCriteria": [
+    "Only 2 roles activated",
+    "No planner explosion",
+    "Targeted frontend CSS/component modified"
+  ],
+  "verificationExpectations": {
+    "type": "lint-and-render",
+    "maxDurationMs": 2000
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "GT-09",
+  "name": "Interrupted Workflow Resume",
+  "category": "recovery",
+  "description": "Resume factory workflow after session interruption or process termination",
+  "expectedRoles": ["planner", "implementer"],
+  "forbiddenRoles": [],
+  "expectedContextGroups": ["core", "state"],
+  "maxAllowedContextFiles": 6,
+  "acceptanceCriteria": [
+    "Read existing state from project.json and tasks.json",
+    "Identify completed tasks and preserve them untouched",
+    "Identify ready or interrupted tasks and resume from exact checkpoint"
+  ],
+  "verificationExpectations": {
+    "type": "state-recovery-check",
+    "zeroWorkLoss": true
+  }
+}

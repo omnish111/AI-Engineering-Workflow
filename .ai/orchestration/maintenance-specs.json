@@ -1,0 +1,89 @@
+{
+  "version": "2.0",
+  "description": "Recurring maintenance task specifications for Antigravity Scheduled Tasks integration",
+  "antigravityIntegration": {
+    "supportedTriggers": ["cron", "one-shot", "git-hook"],
+    "nativeSlashCommand": "/schedule",
+    "recommendedDailyCron": "0 2 * * *",
+    "recommendedWeeklyCron": "0 3 * * 1",
+    "recommendedMonthlyCron": "0 4 1 * *"
+  },
+  "cadences": {
+    "daily": {
+      "name": "Daily Factory Health Inspection",
+      "cron": "0 2 * * *",
+      "durationLimitSeconds": 120,
+      "checks": [
+        {
+          "id": "inspect-unresolved-blockers",
+          "description": "Inspect active blockers in blockers.json and report escalation needs",
+          "action": "checkBlockers"
+        },
+        {
+          "id": "detect-stale-tasks",
+          "description": "Check for tasks stalled in IN_PROGRESS or VERIFYING state past timeout",
+          "action": "checkStaleTasks"
+        },
+        {
+          "id": "verify-state-consistency",
+          "description": "Run schema and state-machine validation across all state files",
+          "action": "checkStateConsistency"
+        }
+      ]
+    },
+    "weekly": {
+      "name": "Weekly Architecture & Cleanliness Audit",
+      "cron": "0 3 * * 1",
+      "durationLimitSeconds": 300,
+      "checks": [
+        {
+          "id": "context-manifest-drift",
+          "description": "Verify context manifest reflects all current repository directories and skills",
+          "action": "checkContextDrift"
+        },
+        {
+          "id": "stale-todo-analysis",
+          "description": "Scan codebase for TODO/FIXME annotations and track age",
+          "action": "scanTodos"
+        },
+        {
+          "id": "worktree-leak-detection",
+          "description": "Detect abandoned or dangling git worktrees and report safe cleanup targets",
+          "action": "checkDanglingWorktrees"
+        },
+        {
+          "id": "codebase-linter-audit",
+          "description": "Run validate-project.js to detect architectural rule violations",
+          "action": "runProjectValidation"
+        }
+      ]
+    },
+    "monthly": {
+      "name": "Monthly Deep Health & Performance Review",
+      "cron": "0 4 1 * *",
+      "durationLimitSeconds": 600,
+      "checks": [
+        {
+          "id": "skill-consistency-review",
+          "description": "Verify all 20 skills have valid frontmatter, triggers, and adapter stubs",
+          "action": "auditSkills"
+        },
+        {
+          "id": "telemetry-efficiency-review",
+          "description": "Aggregate monthly execution times, retries, and token-saving metrics",
+          "action": "summarizeTelemetry"
+        },
+        {
+          "id": "dependency-freshness",
+          "description": "Check dependencies in package.json files for known security updates",
+          "action": "checkDependencies"
+        }
+      ]
+    }
+  },
+  "policies": {
+    "autoMutateProductionCode": false,
+    "requireHumanApprovalForFixes": true,
+    "reportOutputDir": ".ai/maintenance/reports"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "version": "2.0",
+  "description": "Context routing manifest — maps task types to required context files",
+  "contextGroups": {
+    "core": {
+      "description": "Always loaded for any task",
+      "files": [
+        ".ai/settings.json",
+        ".ai/state/project.json"
+      ]
+    },
+    "backend": {
+      "description": "Backend development context",
+      "files": [
+        ".ai/skills/backend/SKILL.md",
+        ".ai/context/coding-rules.md",
+        ".ai/context/architecture-rules.md"
+      ]
+    },
+    "frontend": {
+      "description": "Frontend development context",
+      "files": [
+        ".ai/skills/frontend/SKILL.md",
+        ".ai/context/ui-guidelines.md",
+        ".ai/context/coding-rules.md"
+      ]
+    },
+    "database": {
+      "description": "Database operations context",
+      "files": [
+        ".ai/skills/database/SKILL.md",
+        ".ai/context/architecture-rules.md"
+      ]
+    },
+    "security": {
+      "description": "Security-sensitive changes",
+      "files": [
+        ".ai/skills/security/SKILL.md",
+        ".ai/context/coding-rules.md"
+      ]
+    },
+    "testing": {
+      "description": "Test writing and execution",
+      "files": [
+        ".ai/skills/testing/SKILL.md",
+        ".ai/context/coding-rules.md"
+      ]
+    },
+    "deployment": {
+      "description": "Deployment and infrastructure",
+      "files": [
+        ".ai/skills/deployment/SKILL.md",
+        ".ai/skills/docker/SKILL.md",
+        ".ai/context/tech-stack.md"
+      ]
+    },
+    "planning": {
+      "description": "Planning and architecture design",
+      "files": [
+        ".ai/skills/planning/SKILL.md",
+        ".ai/skills/architecture/SKILL.md",
+        ".ai/context/architecture-rules.md",
+        ".ai/context/tech-stack.md",
+        "doc/prd.md"
+      ]
+    },
+    "bug-fix": {
+      "description": "Bug investigation and fix",
+      "files": [
+        ".ai/skills/bug-fix/SKILL.md",
+        ".ai/skills/debugging/SKILL.md",
+        ".ai/skills/testing/SKILL.md",
+        ".ai/context/coding-rules.md"
+      ]
+    },
+    "review": {
+      "description": "Code review and verification",
+      "files": [
+        ".ai/skills/code-review/SKILL.md",
+        ".ai/skills/verification/SKILL.md",
+        ".ai/context/coding-rules.md",
+        ".ai/context/architecture-rules.md"
+      ]
+    },
+    "state": {
+      "description": "Task and project state (loaded when resuming or tracking)",
+      "files": [
+        ".ai/state/tasks.json",
+        ".ai/state/blockers.json",
+        ".ai/state/decisions.json"
+      ]
+    }
+  },
+  "taskTypeToContextGroups": {
+    "simple-fix": ["core", "backend"],
+    "bug-fix": ["core", "bug-fix", "state"],
+    "feature": ["core", "planning", "backend", "testing"],
+    "complex-feature": ["core", "planning", "backend", "frontend", "database", "security", "testing"],
+    "deployment": ["core", "deployment"],
+    "refactor": ["core", "backend", "testing", "review"],
+    "planning": ["core", "planning"],
+    "security-change": ["core", "security", "backend", "testing", "review"],
+    "database-change": ["core", "database", "backend", "testing"]
+  },
+  "rules": [
+    "Always load 'core' context group",
+    "Load additional groups based on task classification",
+    "When task affects both backend and frontend, load both groups",
+    "When task involves auth/security, always load security group",
+    "When resuming, always load state group",
+    "Never load all groups simultaneously unless explicitly needed"
+  ]
+}
