@@ -1,0 +1,108 @@
+{
+  "version": "3.0",
+  "description": "AEW V3 Skill Registry — Canonical routing metadata for Agent Skills in .agents/skills",
+  "skills": {
+    "analyzing-prd": {
+      "path": ".agents/skills/analyzing-prd/SKILL.md",
+      "description": "Extract requirements, acceptance criteria, NFRs, ambiguity and dependencies from PRDs",
+      "primaryDomain": "requirements",
+      "roles": ["planner", "orchestrator"]
+    },
+    "planning": {
+      "path": ".agents/skills/planning/SKILL.md",
+      "description": "Create implementation plans, task contracts, dependencies and phases",
+      "primaryDomain": "orchestration",
+      "roles": ["planner", "orchestrator"]
+    },
+    "researching": {
+      "path": ".agents/skills/researching/SKILL.md",
+      "description": "Perform focused technical/domain research only when needed",
+      "primaryDomain": "research",
+      "roles": ["researcher"]
+    },
+    "designing-architecture": {
+      "path": ".agents/skills/designing-architecture/SKILL.md",
+      "description": "Define boundaries, interfaces, data flow, ADRs and trade-offs",
+      "primaryDomain": "architecture",
+      "roles": ["planner", "reviewer"]
+    },
+    "implementing-backend": {
+      "path": ".agents/skills/implementing-backend/SKILL.md",
+      "description": "Implement server-side work using the project's actual stack",
+      "primaryDomain": "backend",
+      "roles": ["implementer"]
+    },
+    "implementing-frontend": {
+      "path": ".agents/skills/implementing-frontend/SKILL.md",
+      "description": "Implement UI/client work, responsive behavior and states",
+      "primaryDomain": "frontend",
+      "roles": ["implementer"]
+    },
+    "designing-database": {
+      "path": ".agents/skills/designing-database/SKILL.md",
+      "description": "Design models, indexes, queries, migrations and data safety",
+      "primaryDomain": "database",
+      "roles": ["implementer", "planner"]
+    },
+    "designing-apis": {
+      "path": ".agents/skills/designing-apis/SKILL.md",
+      "description": "Design API contracts, validation, errors, pagination and documentation",
+      "primaryDomain": "api",
+      "roles": ["implementer", "planner"]
+    },
+    "securing-applications": {
+      "path": ".agents/skills/securing-applications/SKILL.md",
+      "description": "Threat modeling, authn/authz, input security, secrets, SSRF/XSS/CSRF/IDOR",
+      "primaryDomain": "security",
+      "roles": ["security-reviewer", "implementer"]
+    },
+    "testing-software": {
+      "path": ".agents/skills/testing-software/SKILL.md",
+      "description": "Impact-aware unit, integration, API and E2E testing",
+      "primaryDomain": "testing",
+      "roles": ["verifier", "debugger"]
+    },
+    "debugging-software": {
+      "path": ".agents/skills/debugging-software/SKILL.md",
+      "description": "Reproduce, isolate, hypothesize, fix and regress",
+      "primaryDomain": "debugging",
+      "roles": ["debugger", "implementer"]
+    },
+    "verifying-changes": {
+      "path": ".agents/skills/verifying-changes/SKILL.md",
+      "description": "Collect evidence; never claim completion without evidence",
+      "primaryDomain": "verification",
+      "roles": ["verifier"]
+    },
+    "evaluating-results": {
+      "path": ".agents/skills/evaluating-results/SKILL.md",
+      "description": "Independently assess whether the requested outcome is actually achieved",
+      "primaryDomain": "evaluation",
+      "roles": ["evaluator"]
+    },
+    "reviewing-code": {
+      "path": ".agents/skills/reviewing-code/SKILL.md",
+      "description": "Review correctness, maintainability, architecture, performance and security",
+      "primaryDomain": "review",
+      "roles": ["reviewer"]
+    },
+    "deploying-software": {
+      "path": ".agents/skills/deploying-software/SKILL.md",
+      "description": "Release, build, deployment and production-readiness checks",
+      "primaryDomain": "devops",
+      "roles": ["implementer", "verifier"]
+    },
+    "onboarding-projects": {
+      "path": ".agents/skills/onboarding-projects/SKILL.md",
+      "description": "Scan existing repos and create a health/upgrade roadmap",
+      "primaryDomain": "onboarding",
+      "roles": ["planner"]
+    },
+    "upgrading-projects": {
+      "path": ".agents/skills/upgrading-projects/SKILL.md",
+      "description": "Audit engineering DNA and modernize it when needed",
+      "primaryDomain": "upgrading",
+      "roles": ["planner", "implementer"]
+    }
+  }
+}

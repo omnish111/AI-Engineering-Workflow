@@ -18,6 +18,8 @@ const colors = {
   cyan: '\x1b[36m'
 };
 
+const workspaceRoot = path.join(__dirname, '../..');
+
 function log(msg, color = colors.reset) {
   console.log(`${color}${msg}${colors.reset}`);
 }
@@ -171,18 +173,19 @@ log('\n═══ Additional: Structure Validation ═══', colors.bold + colo
     assert(fs.existsSync(fullPath), `File exists: ${path.basename(f)}`);
   }
 
-  // Check skills
+  // Check V3 canonical skills
   const expectedSkills = [
-    'project-init', 'prd-analysis', 'planning', 'architecture',
-    'backend', 'frontend', 'database', 'testing', 'security',
-    'debugging', 'deployment', 'bug-fix', 'feature-development',
-    'verification', 'api', 'code-review', 'docker', 'documentation',
-    'git', 'uiux'
+    'analyzing-prd', 'planning', 'researching', 'designing-architecture',
+    'implementing-backend', 'implementing-frontend', 'designing-database',
+    'designing-apis', 'securing-applications', 'testing-software',
+    'debugging-software', 'verifying-changes', 'evaluating-results',
+    'reviewing-code', 'deploying-software', 'onboarding-projects',
+    'upgrading-projects'
   ];
 
   for (const skill of expectedSkills) {
-    const skillPath = path.join(__dirname, `../skills/${skill}/SKILL.md`);
-    assert(fs.existsSync(skillPath), `Skill exists: ${skill}/SKILL.md`);
+    const skillPath = path.join(workspaceRoot, `.agents/skills/${skill}/SKILL.md`);
+    assert(fs.existsSync(skillPath), `Canonical skill exists: ${skill}/SKILL.md`);
   }
 
   // Check archive

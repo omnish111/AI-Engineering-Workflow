@@ -5,3 +5,4 @@
 {"event":"task_completed","taskId":"TASK-PWR-003","timestamp":"2026-09-17T06:30:35Z","evidence":"Passed 6/6 controller tests"}
 {"event":"task_completed","taskId":"TASK-PWR-004","timestamp":"2026-09-17T06:33:41Z","evidence":"Passed 5/5 E2E tests, 20/20 backend tests"}
 {"event":"task_completed","taskId":"TASK-PWR-005","timestamp":"2026-09-17T06:36:33Z","evidence":"Passed validate-project.js, review approved"}
+{"id":"evt-1790427957800-951vu","timestamp":"2026-09-26T13:05:57.801Z","type":"STATE_MUTATION","payload":{"file":"project.json","newRevision":4}}

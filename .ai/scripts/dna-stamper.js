@@ -13,26 +13,23 @@ const TEMPLATES_DIR = path.join(__dirname, '../templates/dna');
 
 // 19 Execution skills relevant to standalone web/SaaS projects
 const EXECUTION_SKILLS = [
-  'api',
-  'architecture',
-  'backend',
-  'bug-fix',
-  'code-review',
-  'database',
-  'debugging',
-  'deployment',
-  'docker',
-  'documentation',
-  'feature-development',
-  'frontend',
-  'git',
+  'analyzing-prd',
   'planning',
-  'prd-analysis',
-  'security',
-  'strategic-research',
-  'testing',
-  'uiux',
-  'verification'
+  'researching',
+  'designing-architecture',
+  'implementing-backend',
+  'implementing-frontend',
+  'designing-database',
+  'designing-apis',
+  'securing-applications',
+  'testing-software',
+  'debugging-software',
+  'verifying-changes',
+  'evaluating-results',
+  'reviewing-code',
+  'deploying-software',
+  'onboarding-projects',
+  'upgrading-projects'
 ];
 
 // Project-level runtime scripts
@@ -45,7 +42,9 @@ const PROJECT_SCRIPTS = [
   'model-router.js',
   'maintenance-runner.js',
   'telemetry-report.js',
-  'update-context-manifest.js'
+  'update-context-manifest.js',
+  'state-io.js',
+  'security-hook.js'
 ];
 
 function stampDNA(targetDir, options = {}) {
@@ -227,47 +226,50 @@ function stampDNA(targetDir, options = {}) {
     generatedFiles.push('.ai/templates/strategic-research-template.md');
   }
 
-  // 9. Execution Skills (.ai/skills/ and .agents/skills/)
+  // 9. Canonical Execution Skills (.agents/skills/)
   for (const skill of EXECUTION_SKILLS) {
-    const srcSkillDir = path.join(FACTORY_ROOT, '.ai', 'skills', skill);
-    const destSkillDir = path.join(resolvedTarget, '.ai', 'skills', skill);
+    const srcSkillDir = path.join(FACTORY_ROOT, '.agents', 'skills', skill);
+    const destSkillDir = path.join(resolvedTarget, '.agents', 'skills', skill);
     if (fs.existsSync(srcSkillDir)) {
       fs.cpSync(srcSkillDir, destSkillDir, { recursive: true });
-      generatedFiles.push(`.ai/skills/${skill}`);
-
-      // Create .agents/skills adapter
-      const adapterDir = path.join(resolvedTarget, '.agents', 'skills', skill);
-      if (!fs.existsSync(adapterDir)) {
-        fs.mkdirSync(adapterDir, { recursive: true });
-      }
-      const adapterSkillFile = path.join(adapterDir, 'SKILL.md');
-      const adapterContent = `---
-name: ${skill}
-description: See canonical skill at .ai/skills/${skill}/SKILL.md
----
-See the full skill at ../../.ai/skills/${skill}/SKILL.md and follow it.
-`;
-      fs.writeFileSync(adapterSkillFile, adapterContent, 'utf8');
-      generatedFiles.push(`.agents/skills/${skill}/SKILL.md`);
+      generatedFiles.push(`.agents/skills/${skill}`);
     }
   }
 
-  // 10. Rules (.agents/rules/)
-  const ruleTemplates = [
-    { name: 'architecture-rules.md', target: '../.ai/context/architecture.md and ../.ai/context/architecture-rules.md' },
-    { name: 'coding-rules.md', target: '../.ai/context/coding-rules.md' },
-    { name: 'naming-rules.md', target: '../.ai/context/naming-rules.md' },
-    { name: 'tech-stack.md', target: '../.ai/context/tech-stack.md' },
-    { name: 'ui-guidelines.md', target: '../.ai/context/ui-guidelines.md' }
-  ];
-
-  for (const rule of ruleTemplates) {
-    const rulePath = path.join(resolvedTarget, '.agents', 'rules', rule.name);
-    if (!fs.existsSync(rulePath) || options.force) {
-      const content = `# ${rule.name.replace('.md', '')} Rules\nFollow the conventions and guidelines specified in ${rule.target}.\n`;
-      fs.writeFileSync(rulePath, content, 'utf8');
-      generatedFiles.push(`.agents/rules/${rule.name}`);
+  // 10. Native Invariant Rules (.agents/rules/)
+  const srcRulesDir = path.join(FACTORY_ROOT, '.agents', 'rules');
+  const destRulesDir = path.join(resolvedTarget, '.agents', 'rules');
+  if (fs.existsSync(srcRulesDir)) {
+    if (!fs.existsSync(destRulesDir)) fs.mkdirSync(destRulesDir, { recursive: true });
+    const rules = fs.readdirSync(srcRulesDir).filter(f => f.endsWith('.md'));
+    for (const rule of rules) {
+      fs.copyFileSync(path.join(srcRulesDir, rule), path.join(destRulesDir, rule));
+      generatedFiles.push(`.agents/rules/${rule}`);
     }
+  }
+
+  // 11. Custom Antigravity Subagents (.agents/agents/)
+  const srcAgentsDir = path.join(FACTORY_ROOT, '.agents', 'agents');
+  const destAgentsDir = path.join(resolvedTarget, '.agents', 'agents');
+  if (fs.existsSync(srcAgentsDir)) {
+    if (!fs.existsSync(destAgentsDir)) fs.mkdirSync(destAgentsDir, { recursive: true });
+    const agents = fs.readdirSync(srcAgentsDir).filter(f => f.endsWith('.md'));
+    for (const agent of agents) {
+      fs.copyFileSync(path.join(srcAgentsDir, agent), path.join(destAgentsDir, agent));
+      generatedFiles.push(`.agents/agents/${agent}`);
+    }
+  }
+
+  // 12. Deterministic Safety Hooks (.agents/hooks.json & security-hook.js)
+  const hookJson = path.join(FACTORY_ROOT, '.agents', 'hooks.json');
+  const hookShim = path.join(FACTORY_ROOT, '.agents', 'security-hook.js');
+  if (fs.existsSync(hookJson)) {
+    fs.copyFileSync(hookJson, path.join(resolvedTarget, '.agents', 'hooks.json'));
+    generatedFiles.push('.agents/hooks.json');
+  }
+  if (fs.existsSync(hookShim)) {
+    fs.copyFileSync(hookShim, path.join(resolvedTarget, '.agents', 'security-hook.js'));
+    generatedFiles.push('.agents/security-hook.js');
   }
 
   // Quality Invariants rule (Zero-Silly-Bugs Standard)

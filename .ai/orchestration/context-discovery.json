@@ -1,10 +1,10 @@
 {
   "version": "2.0",
-  "lastDiscovered": "2026-09-17T07:15:11.916Z",
+  "lastDiscovered": "2026-09-26T13:31:39.871Z",
   "inventory": {
-    "skillsCount": 20,
-    "contextRulesCount": 6,
-    "docsCount": 4,
+    "skillsCount": 17,
+    "contextRulesCount": 13,
+    "docsCount": 7,
     "backendFilesCount": 13,
     "frontendFilesCount": 0,
     "testFilesCount": 4
@@ -13,74 +13,81 @@
     "backend": {
       "description": "Backend implementation and services context",
       "files": [
-        ".ai/skills/backend/SKILL.md",
-        ".ai/context/coding-rules.md",
-        ".ai/context/architecture-rules.md"
+        ".agents/skills/implementing-backend/SKILL.md",
+        ".agents/rules/coding-rules.md",
+        ".agents/rules/architecture-rules.md"
       ]
     },
     "frontend": {
       "description": "Frontend UI and client components context",
       "files": [
-        ".ai/skills/frontend/SKILL.md",
-        ".ai/context/ui-guidelines.md",
-        ".ai/context/coding-rules.md"
+        ".agents/skills/implementing-frontend/SKILL.md",
+        ".agents/rules/ui-guidelines.md",
+        ".agents/rules/coding-rules.md"
       ]
     },
     "database": {
       "description": "Database models, entities and repositories context",
       "files": [
-        ".ai/skills/database/SKILL.md",
-        ".ai/context/architecture-rules.md"
+        ".agents/skills/designing-database/SKILL.md",
+        ".agents/rules/architecture-rules.md"
       ]
     },
     "security": {
       "description": "Security rules, authentication and auditing context",
       "files": [
-        ".ai/skills/security/SKILL.md",
-        ".ai/context/coding-rules.md"
+        ".agents/skills/securing-applications/SKILL.md",
+        ".agents/rules/security.md"
       ]
     },
     "testing": {
       "description": "Test execution, suites and coverage rules",
       "files": [
-        ".ai/skills/testing/SKILL.md",
-        ".ai/context/coding-rules.md"
+        ".agents/skills/testing-software/SKILL.md",
+        ".agents/skills/verifying-changes/SKILL.md",
+        ".agents/rules/coding-rules.md"
       ]
     },
     "planning": {
       "description": "Planning, architecture and PRD requirements",
       "files": [
-        ".ai/skills/planning/SKILL.md",
-        ".ai/skills/architecture/SKILL.md",
-        ".ai/context/architecture-rules.md",
-        ".ai/context/tech-stack.md",
+        ".agents/skills/planning/SKILL.md",
+        ".agents/skills/analyzing-prd/SKILL.md",
+        ".agents/skills/designing-architecture/SKILL.md",
+        ".agents/rules/architecture-rules.md",
+        ".agents/rules/tech-stack.md",
         "doc/prd.md"
       ]
     },
     "review": {
       "description": "Code review and verification guidelines",
       "files": [
-        ".ai/skills/code-review/SKILL.md",
-        ".ai/skills/verification/SKILL.md",
-        ".ai/context/coding-rules.md",
-        ".ai/context/architecture-rules.md"
+        ".agents/skills/reviewing-code/SKILL.md",
+        ".agents/skills/verifying-changes/SKILL.md",
+        ".agents/rules/coding-rules.md",
+        ".agents/rules/architecture-rules.md"
       ]
     },
     "deployment": {
       "description": "Deployment, containers and infrastructure rules",
       "files": [
-        ".ai/skills/deployment/SKILL.md",
-        ".ai/skills/docker/SKILL.md",
-        ".ai/context/tech-stack.md"
+        ".agents/skills/deploying-software/SKILL.md",
+        ".agents/rules/tech-stack.md"
       ]
     },
     "bug-fix": {
       "description": "Bug debugging and regression context",
       "files": [
-        ".ai/skills/bug-fix/SKILL.md",
-        ".ai/skills/debugging/SKILL.md",
-        ".ai/skills/testing/SKILL.md",
-        ".ai/context/coding-rules.md"
+        ".agents/skills/debugging-software/SKILL.md",
+        ".agents/skills/testing-software/SKILL.md",
+        ".agents/rules/coding-rules.md"
+      ]
+    },
+    "evaluation": {
+      "description": "Independent evaluation and outcome grading context",
+      "files": [
+        ".agents/skills/evaluating-results/SKILL.md",
+        ".agents/skills/verifying-changes/SKILL.md"
       ]
     }
   }

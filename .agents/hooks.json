@@ -1,0 +1,17 @@
+{
+  "security-guard": {
+    "enabled": true,
+    "PreToolUse": [
+      {
+        "matcher": "run_command",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ./security-hook.js",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

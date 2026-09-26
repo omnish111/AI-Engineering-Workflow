@@ -1,77 +1,103 @@
 {
-  "version": "2.0",
-  "description": "Registry of available agent roles and their capabilities",
+  "version": "3.0",
+  "description": "Registry of available agent roles and their V3 capabilities",
   "roles": {
     "orchestrator": {
       "description": "Coordinates task execution, selects roles, manages workflow",
-      "skills": ["project-init", "prd-analysis"],
+      "skills": ["planning", "verifying-changes", "evaluating-results"],
+      "subagent": null,
       "activationCriteria": "Always active as entry point",
       "canParallelize": false
     },
     "planner": {
       "description": "Analyzes requirements, decomposes into tasks, generates DAG",
-      "skills": ["planning", "prd-analysis", "architecture"],
+      "skills": ["analyzing-prd", "planning", "designing-architecture"],
+      "subagent": ".agents/agents/planner.md",
       "activationCriteria": "New project, new feature, major refactor",
       "canParallelize": false
     },
     "researcher": {
       "description": "Investigates technical questions, evaluates options",
-      "skills": ["architecture", "security", "database"],
+      "skills": ["researching"],
+      "subagent": ".agents/agents/researcher.md",
       "activationCriteria": "Ambiguous technical decision, new technology evaluation",
       "canParallelize": true
     },
     "architect": {
       "description": "Designs system architecture, defines patterns and contracts",
-      "skills": ["architecture", "database", "api", "security"],
+      "skills": ["designing-architecture", "designing-database", "designing-apis", "securing-applications"],
+      "subagent": ".agents/agents/planner.md",
       "activationCriteria": "Complex feature requiring architectural decisions",
       "canParallelize": false
     },
     "implementer": {
       "description": "Writes application code following established patterns",
-      "skills": ["backend", "frontend", "database", "api", "docker"],
+      "skills": ["implementing-backend", "implementing-frontend", "designing-database", "designing-apis", "deploying-software"],
+      "subagent": ".agents/agents/implementer.md",
       "activationCriteria": "Code changes required",
       "canParallelize": true,
       "parallelizationNote": "Backend and frontend can run in parallel when independent"
     },
     "verifier": {
       "description": "Validates changes through testing and quality gates",
-      "skills": ["testing", "verification", "code-review"],
+      "skills": ["verifying-changes", "testing-software"],
+      "subagent": ".agents/agents/verifier.md",
       "activationCriteria": "After implementation, before marking task complete",
+      "canParallelize": false
+    },
+    "evaluator": {
+      "description": "Independently assesses whether the requested outcome is actually achieved",
+      "skills": ["evaluating-results"],
+      "subagent": ".agents/agents/evaluator.md",
+      "activationCriteria": "After verification, independent outcome assessment",
       "canParallelize": false
     },
     "reviewer": {
       "description": "Evaluates architecture, quality, security, and maintainability",
-      "skills": ["code-review", "security", "architecture"],
+      "skills": ["reviewing-code", "securing-applications", "designing-architecture"],
+      "subagent": ".agents/agents/reviewer.md",
       "activationCriteria": "Complex features, security-sensitive changes, architectural changes",
+      "canParallelize": false
+    },
+    "security-reviewer": {
+      "description": "Specialized security audit, authn/authz validation, and threat modeling",
+      "skills": ["securing-applications"],
+      "subagent": ".agents/agents/security-reviewer.md",
+      "activationCriteria": "Security-sensitive features, auth changes, permission updates",
       "canParallelize": false
     },
     "debugger": {
       "description": "Investigates and resolves errors, failures, and regressions",
-      "skills": ["debugging", "bug-fix", "testing"],
+      "skills": ["debugging-software", "testing-software"],
+      "subagent": ".agents/agents/implementer.md",
       "activationCriteria": "Bug report, test failure, runtime error",
       "canParallelize": false
     },
     "deployer": {
       "description": "Manages deployment, CI/CD, and infrastructure configuration",
-      "skills": ["deployment", "docker", "git"],
+      "skills": ["deploying-software"],
+      "subagent": ".agents/agents/implementer.md",
       "activationCriteria": "Deployment preparation, CI/CD changes, infrastructure work",
       "canParallelize": false
     },
     "strategic-researcher": {
       "description": "Performs 5D strategic intelligence: competitive landscape, UX trends, tech evaluation, and failure risks",
-      "skills": ["strategic-research", "architecture", "uiux"],
+      "skills": ["researching", "designing-architecture"],
+      "subagent": ".agents/agents/researcher.md",
       "activationCriteria": "New product discovery, market research, or codebase onboarding",
       "canParallelize": true
     },
     "onboarder": {
       "description": "Scans existing external codebases, extracts architecture, and embeds portable engineering DNA",
-      "skills": ["onboard-project", "strategic-research", "architecture"],
+      "skills": ["onboarding-projects", "researching", "designing-architecture"],
+      "subagent": ".agents/agents/planner.md",
       "activationCriteria": "Adopting, scanning, or importing an existing codebase",
       "canParallelize": false
     },
     "upgrader": {
       "description": "Audits existing project DNA against modern industry evolutions and formulates upgrade plans",
-      "skills": ["upgrade-project", "architecture", "security"],
+      "skills": ["upgrading-projects", "designing-architecture", "securing-applications"],
+      "subagent": ".agents/agents/planner.md",
       "activationCriteria": "Project upgrade or modernization request",
       "canParallelize": false
     }
@@ -89,7 +115,7 @@
     "onboard": ["onboarder", "strategic-researcher", "reviewer"],
     "strategic-research": ["strategic-researcher"],
     "upgrade": ["upgrader", "implementer", "verifier"],
-    "audit": ["reviewer", "verifier", "upgrader"]
+    "audit": ["reviewer", "verifier", "upgrader"],
+    "evaluation": ["evaluator"]
   }
 }
-

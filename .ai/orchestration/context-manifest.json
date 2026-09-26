@@ -1,6 +1,6 @@
 {
-  "version": "2.0",
-  "description": "Context routing manifest — maps task types to required context files",
+  "version": "3.0",
+  "description": "Context routing manifest — maps task types and domains to canonical Antigravity skills and rules",
   "contextGroups": {
     "core": {
       "description": "Always loaded for any task",
@@ -12,74 +12,81 @@
     "backend": {
       "description": "Backend development context",
       "files": [
-        ".ai/skills/backend/SKILL.md",
-        ".ai/context/coding-rules.md",
-        ".ai/context/architecture-rules.md"
+        ".agents/skills/implementing-backend/SKILL.md",
+        ".agents/rules/coding-rules.md",
+        ".agents/rules/architecture-rules.md"
       ]
     },
     "frontend": {
       "description": "Frontend development context",
       "files": [
-        ".ai/skills/frontend/SKILL.md",
-        ".ai/context/ui-guidelines.md",
-        ".ai/context/coding-rules.md"
+        ".agents/skills/implementing-frontend/SKILL.md",
+        ".agents/rules/ui-guidelines.md",
+        ".agents/rules/coding-rules.md"
       ]
     },
     "database": {
       "description": "Database operations context",
       "files": [
-        ".ai/skills/database/SKILL.md",
-        ".ai/context/architecture-rules.md"
+        ".agents/skills/designing-database/SKILL.md",
+        ".agents/rules/architecture-rules.md"
       ]
     },
     "security": {
       "description": "Security-sensitive changes",
       "files": [
-        ".ai/skills/security/SKILL.md",
-        ".ai/context/coding-rules.md"
+        ".agents/skills/securing-applications/SKILL.md",
+        ".agents/rules/security.md",
+        ".agents/rules/coding-rules.md"
       ]
     },
     "testing": {
       "description": "Test writing and execution",
       "files": [
-        ".ai/skills/testing/SKILL.md",
-        ".ai/context/coding-rules.md"
+        ".agents/skills/testing-software/SKILL.md",
+        ".agents/rules/coding-rules.md"
       ]
     },
     "deployment": {
       "description": "Deployment and infrastructure",
       "files": [
-        ".ai/skills/deployment/SKILL.md",
-        ".ai/skills/docker/SKILL.md",
-        ".ai/context/tech-stack.md"
+        ".agents/skills/deploying-software/SKILL.md",
+        ".agents/rules/tech-stack.md"
       ]
     },
     "planning": {
       "description": "Planning and architecture design",
       "files": [
-        ".ai/skills/planning/SKILL.md",
-        ".ai/skills/architecture/SKILL.md",
-        ".ai/context/architecture-rules.md",
-        ".ai/context/tech-stack.md",
+        ".agents/skills/planning/SKILL.md",
+        ".agents/skills/analyzing-prd/SKILL.md",
+        ".agents/skills/designing-architecture/SKILL.md",
+        ".agents/rules/architecture-rules.md",
+        ".agents/rules/tech-stack.md",
         "doc/prd.md"
       ]
     },
     "bug-fix": {
       "description": "Bug investigation and fix",
       "files": [
-        ".ai/skills/bug-fix/SKILL.md",
-        ".ai/skills/debugging/SKILL.md",
-        ".ai/skills/testing/SKILL.md",
-        ".ai/context/coding-rules.md"
+        ".agents/skills/debugging-software/SKILL.md",
+        ".agents/skills/testing-software/SKILL.md",
+        ".agents/rules/coding-rules.md"
       ]
     },
     "review": {
       "description": "Code review and verification",
       "files": [
-        ".ai/skills/code-review/SKILL.md",
-        ".ai/skills/verification/SKILL.md",
-        ".ai/context/coding-rules.md",
-        ".ai/context/architecture-rules.md"
+        ".agents/skills/reviewing-code/SKILL.md",
+        ".agents/skills/verifying-changes/SKILL.md",
+        ".agents/rules/coding-rules.md",
+        ".agents/rules/architecture-rules.md"
+      ]
+    },
+    "evaluation": {
+      "description": "Outcome evaluation and independent grading",
+      "files": [
+        ".agents/skills/evaluating-results/SKILL.md",
+        ".agents/skills/verifying-changes/SKILL.md"
       ]
     },
     "state": {
@@ -100,11 +107,12 @@
     "refactor": ["core", "backend", "testing", "review"],
     "planning": ["core", "planning"],
     "security-change": ["core", "security", "backend", "testing", "review"],
-    "database-change": ["core", "database", "backend", "testing"]
+    "database-change": ["core", "database", "backend", "testing"],
+    "evaluation": ["core", "evaluation"]
   },
   "rules": [
     "Always load 'core' context group",
-    "Load additional groups based on task classification",
+    "Load additional groups based on multidimensional task classification",
     "When task affects both backend and frontend, load both groups",
     "When task involves auth/security, always load security group",
     "When resuming, always load state group",

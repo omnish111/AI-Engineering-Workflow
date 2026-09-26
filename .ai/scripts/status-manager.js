@@ -35,6 +35,8 @@ const blockersPath = path.join(stateDir, 'blockers.json');
 const eventsPath = path.join(stateDir, 'events.jsonl');
 const legacyStatePath = path.join(__dirname, '../memory/state.json');
 
+const { writeJsonAtomic, appendEvent } = require('./state-io');
+
 // Ensure parent directories exist
 [stateDir, path.dirname(legacyStatePath)].forEach(dir => {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
@@ -343,8 +345,8 @@ function syncMarkdowns() {
   proj.activeBlockers = blockedTasks;
   proj.lastUpdated = new Date().toISOString().split('T')[0];
 
-  // Save updated project state
-  fs.writeFileSync(projectPath, JSON.stringify(proj, null, 2));
+  // Save updated project state atomically
+  writeJsonAtomic(projectPath, proj);
 
   // Write Project Status Markdown
   const progressPercent = allTasks.length > 0 ? Math.round((completedTasks / allTasks.length) * 100) : 0;
@@ -571,8 +573,8 @@ if (require.main === module) {
     state.project.data.status = 'AWAITING_PRD';
     state.tasks.data.tasks = [];
     state.tasks.data.phases = [];
-    fs.writeFileSync(projectPath, JSON.stringify(state.project.data, null, 2));
-    fs.writeFileSync(tasksPath, JSON.stringify(state.tasks.data, null, 2));
+    writeJsonAtomic(projectPath, state.project.data);
+    writeJsonAtomic(tasksPath, state.tasks.data);
     syncMarkdowns();
     log(`Initialized state database for "${name}"`, colors.green);
     break;
@@ -605,7 +607,7 @@ if (require.main === module) {
 
     task.status = newStatus;
     if (newStatus === 'COMPLETED') task.completedAt = new Date().toISOString();
-    fs.writeFileSync(tasksPath, JSON.stringify(tasks.data, null, 2));
+    writeJsonAtomic(tasksPath, tasks.data);
     log(`Task ${taskId} status transitioned: ${task.status} → ${newStatus}`, colors.green);
     syncMarkdowns();
     break;

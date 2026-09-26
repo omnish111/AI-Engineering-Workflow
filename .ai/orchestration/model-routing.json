@@ -1,33 +1,37 @@
 {
-  "version": "2.0",
-  "description": "Provider-agnostic abstract model routing policy and tier mappings",
+  "version": "3.0",
+  "description": "Abstract capability-tier routing policy for Google Antigravity runtime",
   "tiers": {
     "fast": {
-      "description": "High-throughput, low-latency model for simple fixes, typos, formatting, and doc updates",
+      "description": "High-throughput, low-latency tier for small edits, formatting, narrow documentation, and quick status checks",
       "targetLatencyMs": 1500,
       "costWeight": 1,
-      "recommendedModels": ["gemini-2.5-flash", "claude-3-5-haiku", "gpt-4o-mini"],
+      "routingHeuristic": "Gemini fast/Flash-class",
+      "recommendedModels": ["Gemini Flash", "Gemini Fast Tier"],
       "fallbackTier": "standard"
     },
     "standard": {
-      "description": "Balanced reasoning and code generation for normal features, CRUD, and unit test authoring",
+      "description": "Balanced reasoning and code generation for routine implementation, ordinary tests, CRUD, and refactoring",
       "targetLatencyMs": 4000,
       "costWeight": 3,
-      "recommendedModels": ["gemini-2.5-pro", "claude-3-5-sonnet", "gpt-4o"],
+      "routingHeuristic": "Gemini Pro-class",
+      "recommendedModels": ["Gemini Pro", "Gemini Standard Tier"],
       "fallbackTier": "fast"
     },
     "strong": {
-      "description": "Deep architectural reasoning, planning, complex refactoring, and multi-module coordination",
+      "description": "Deep architectural reasoning, complex planning, multi-module coordination, and difficult debugging",
       "targetLatencyMs": 8000,
       "costWeight": 8,
-      "recommendedModels": ["claude-3-7-sonnet-thinking", "gemini-3.7-thinking", "o3-mini"],
+      "routingHeuristic": "Gemini strong model or Claude Sonnet 4.6",
+      "recommendedModels": ["Gemini Deep Thinking", "Claude Sonnet Tier"],
       "fallbackTier": "standard"
     },
     "critical": {
-      "description": "Highest rigor for security vulnerabilities, cryptographic protocols, root-cause debugging of hard failures",
+      "description": "Highest rigor for security-sensitive reasoning, cryptographic protocols, root-cause failure analysis, and high-blast-radius validation",
       "targetLatencyMs": 15000,
       "costWeight": 15,
-      "recommendedModels": ["claude-opus", "o1", "gemini-ultra"],
+      "routingHeuristic": "Claude Opus 4.6 or equivalent strongest available model",
+      "recommendedModels": ["Claude Opus Tier", "Gemini Ultra/Max Tier"],
       "fallbackTier": "strong"
     }
   },

@@ -1,17 +1,16 @@
 {
-  "version": "2.0.0",
-  "architectureVersion": "v2-tier-a",
+  "version": "3.0.0",
+  "architectureVersion": "v3-antigravity",
   "project": {
     "name": "AI Engineering Workflow",
-    "description": "Autonomous multi-agent software factory for PRD-to-SaaS application development",
-    "organization": "ProvenPeak Solutions",
-    "created": "2026-05-25",
-    "status": "initialized"
+    "description": "Antigravity-first, Skills-first AI engineering harness for PRD-to-software execution",
+    "status": "active"
   },
   "orchestration": {
-    "model": "dynamic",
-    "orchestrator": "agents/orchestrator.md",
+    "model": "capability-tier",
+    "skillRegistry": "orchestration/skill-registry.json",
     "roleRegistry": "orchestration/role-registry.json",
+    "modelRouting": "orchestration/model-routing.json",
     "taskClassifier": "orchestration/task-classifier.md",
     "decisionPolicy": "orchestration/decision-policy.json",
     "contextManifest": "orchestration/context-manifest.json",
@@ -19,76 +18,24 @@
     "verificationSchema": "orchestration/verification-schema.json",
     "parallelPolicy": "orchestration/parallel-policy.md"
   },
-  "agents_v1_archived": {
-    "note": "V1 agent definitions preserved in .ai/archive/v1/agents/",
-    "super-agent": "archive/v1/agents/super-agent.md",
-    "deep-plan-agent": "agents/deep-plan-agent.md",
-    "backend-agent": "agents/backend-agent.md",
-    "frontend-agent": "agents/frontend-agent.md",
-    "qa-agent": "agents/qa-agent.md",
-    "code-review-agent": "agents/code-review-agent.md"
-  },
   "workflow": {
     "model": "task-dag",
-    "note": "V2 uses dynamic task DAG instead of fixed pipeline. Legacy pipeline archived.",
-    "legacyPipeline": ["prd-to-plan", "roadmap-to-phase", "phase-execution", "testing", "deployment"],
     "taskGraph": "state/tasks.json",
     "taskGraphScript": "scripts/task-graph.js"
   },
-  "tech_stack": {
-    "backend": {
-      "runtime": "Node.js 24 LTS",
-      "framework": "NestJS 11.x",
-      "language": "TypeScript 5.x",
-      "databases": [
-        "MongoDB 7.x"
-      ],
-      "orm_odm": "Mongoose 8.x",
-      "cache": "Redis 7.x",
-      "queue": "BullMQ (Redis-backed)",
-      "containerization": "Docker",
-      "api_docs": "Swagger/OpenAPI 3.0"
-    },
-    "frontend": {
-      "framework": "Next.js 14.x",
-      "library": "React 18.x",
-      "language": "TypeScript 5.x",
-      "styling": "Tailwind CSS 3.x",
-      "components": "Shadcn UI (Latest)",
-      "state": "Zustand 4.x",
-      "animations": "Framer Motion 11.x"
-    },
-    "testing": {
-      "unit": "Jest 29.x",
-      "integration": "Supertest (Latest)",
-      "e2e": "Playwright (Latest)",
-      "api": "Postman/Newman"
-    },
-    "devops": {
-      "ci_cd": "GitHub Actions",
-      "containerization": "Docker + Docker Compose (Latest)",
-      "monitoring": "Prometheus (Latest) + Grafana (Latest)",
-      "logging": "Winston 3.x + ELK (Latest)"
-    }
-  },
   "paths": {
-    "agents": ".ai/agents",
-    "skills": ".ai/skills",
+    "rules": ".agents/rules",
+    "skills": ".agents/skills",
+    "agents": ".agents/agents",
+    "hooks": ".agents/hooks.json",
     "orchestration": ".ai/orchestration",
     "state": ".ai/state",
-    "workflows": ".ai/workflows",
-    "context": ".ai/context",
-    "memory": ".ai/memory",
-    "project_management": ".ai/project-management",
+    "evaluations": "evals/golden-tasks",
     "templates": ".ai/templates",
+    "scripts": ".ai/scripts",
     "archive": ".ai/archive",
     "prd": "doc/prd.md",
     "source_backend": "codebase/backend",
-    "source_frontend": "codebase/frontend",
-    "tests": "tests"
-  },
-  "git_remotes": {
-    "backend": "git@github.com:yourusername/backend-only-repo.git",
-    "frontend": "git@github.com:yourusername/frontend-only-repo.git"
+    "source_frontend": "codebase/frontend"
   }
 }

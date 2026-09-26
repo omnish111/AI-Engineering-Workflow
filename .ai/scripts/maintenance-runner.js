@@ -138,7 +138,9 @@ const checkHandlers = {
   },
 
   auditSkills: () => {
-    const skillsDir = path.join(workspaceRoot, '.ai/skills');
+    const skillsDir = fs.existsSync(path.join(workspaceRoot, '.agents/skills'))
+      ? path.join(workspaceRoot, '.agents/skills')
+      : path.join(workspaceRoot, '.ai/skills');
     if (!fs.existsSync(skillsDir)) return { status: 'FAIL', detail: 'Skills directory missing' };
     const skills = fs.readdirSync(skillsDir, { withFileTypes: true }).filter(d => d.isDirectory());
     const missingMd = [];

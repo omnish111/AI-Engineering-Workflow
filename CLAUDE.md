@@ -1,10 +1,10 @@
-# Claude Code Rules
+# Claude Code Compatibility Note
 
-Follow the shared rules defined in [AGENTS.md](AGENTS.md).
-Specific commands are configured in `.claude/commands/`.
-Skills are configured in `.claude/skills/`.
+This repository is designed Antigravity-first. For any cross-tool sessions or reference:
 
-## V2 Skill Loading
+- **Shared Constitution**: [AGENTS.md](AGENTS.md)
+- **Rules**: `.agents/rules/`
+- **Agent Skills**: `.agents/skills/`
+- **Control Plane & State**: `.ai/`
 
-Canonical skills are in `.ai/skills/[name]/SKILL.md`.
-Load only skills relevant to the current task — see `.ai/orchestration/context-manifest.json`.
+Do not treat this file or `.claude/` as the canonical architecture.

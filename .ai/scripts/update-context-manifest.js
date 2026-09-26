@@ -65,23 +65,30 @@ function scanDirectoryFiles(dirRel, pattern = null) {
 function discoverContext() {
   log('Scanning repository for context discovery...', colors.bold + colors.blue);
 
-  // 1. Discover Skills
-  const skillsDir = path.join(workspaceRoot, '.ai/skills');
+  // 1. Discover Skills (.agents/skills canonical, fallback .ai/skills)
+  const agentSkillsDir = path.join(workspaceRoot, '.agents/skills');
+  const aiSkillsDir = path.join(workspaceRoot, '.ai/skills');
   const discoveredSkills = {};
-  if (fs.existsSync(skillsDir)) {
-    const skillDirs = fs.readdirSync(skillsDir, { withFileTypes: true });
-    for (const s of skillDirs) {
-      if (s.isDirectory()) {
-        const skillMd = `.ai/skills/${s.name}/SKILL.md`;
-        if (fs.existsSync(path.join(workspaceRoot, skillMd))) {
-          discoveredSkills[s.name] = skillMd;
+
+  const scanSkillsIn = (dir, prefix) => {
+    if (fs.existsSync(dir)) {
+      const skillDirs = fs.readdirSync(dir, { withFileTypes: true });
+      for (const s of skillDirs) {
+        if (s.isDirectory()) {
+          const skillMd = `${prefix}/${s.name}/SKILL.md`;
+          if (fs.existsSync(path.join(workspaceRoot, skillMd))) {
+            discoveredSkills[s.name] = skillMd;
+          }
         }
       }
     }
-  }
+  };
 
-  // 2. Discover Context Rules & Documentation
-  const contextRules = scanDirectoryFiles('.ai/context', /\.md$/);
+  scanSkillsIn(aiSkillsDir, '.ai/skills');
+  scanSkillsIn(agentSkillsDir, '.agents/skills');
+
+  // 2. Discover Context Rules & Documentation (.agents/rules canonical)
+  const contextRules = scanDirectoryFiles('.agents/rules', /\.md$/).concat(scanDirectoryFiles('.ai/context', /\.md$/));
   const docs = scanDirectoryFiles('doc', /\.md$/).concat(scanDirectoryFiles('docs', /\.md$/));
 
   // 3. Discover Codebase Modules
@@ -89,79 +96,94 @@ function discoverContext() {
   const frontendFiles = scanDirectoryFiles('codebase/frontend', /\.(ts|tsx|js|jsx|json|css)$/);
   const testFiles = scanDirectoryFiles('codebase/backend/test', /\.(test|spec)\.(ts|js)$/);
 
+  // Helper to pick best existing skill path
+  const pickSkill = (candidates) => {
+    for (const name of candidates) {
+      if (discoveredSkills[name]) return discoveredSkills[name];
+    }
+    return null;
+  };
+
   // Build Discovered Groups
   const discoveredGroups = {
     backend: {
       description: 'Backend implementation and services context',
       files: [
-        discoveredSkills['backend'] || '.ai/skills/backend/SKILL.md',
-        '.ai/context/coding-rules.md',
-        '.ai/context/architecture-rules.md'
+        pickSkill(['implementing-backend', 'backend']) || '.agents/skills/implementing-backend/SKILL.md',
+        fs.existsSync(path.join(workspaceRoot, '.agents/rules/coding-rules.md')) ? '.agents/rules/coding-rules.md' : '.ai/context/coding-rules.md',
+        fs.existsSync(path.join(workspaceRoot, '.agents/rules/architecture-rules.md')) ? '.agents/rules/architecture-rules.md' : '.ai/context/architecture-rules.md'
       ].filter(f => fs.existsSync(path.join(workspaceRoot, f)))
     },
     frontend: {
       description: 'Frontend UI and client components context',
       files: [
-        discoveredSkills['frontend'] || '.ai/skills/frontend/SKILL.md',
-        '.ai/context/ui-guidelines.md',
-        '.ai/context/coding-rules.md'
+        pickSkill(['implementing-frontend', 'frontend']) || '.agents/skills/implementing-frontend/SKILL.md',
+        fs.existsSync(path.join(workspaceRoot, '.agents/rules/ui-guidelines.md')) ? '.agents/rules/ui-guidelines.md' : '.ai/context/ui-guidelines.md',
+        fs.existsSync(path.join(workspaceRoot, '.agents/rules/coding-rules.md')) ? '.agents/rules/coding-rules.md' : '.ai/context/coding-rules.md'
       ].filter(f => fs.existsSync(path.join(workspaceRoot, f)))
     },
     database: {
       description: 'Database models, entities and repositories context',
       files: [
-        discoveredSkills['database'] || '.ai/skills/database/SKILL.md',
-        '.ai/context/architecture-rules.md'
+        pickSkill(['designing-database', 'database']) || '.agents/skills/designing-database/SKILL.md',
+        fs.existsSync(path.join(workspaceRoot, '.agents/rules/architecture-rules.md')) ? '.agents/rules/architecture-rules.md' : '.ai/context/architecture-rules.md'
       ].filter(f => fs.existsSync(path.join(workspaceRoot, f)))
     },
     security: {
       description: 'Security rules, authentication and auditing context',
       files: [
-        discoveredSkills['security'] || '.ai/skills/security/SKILL.md',
-        '.ai/context/coding-rules.md'
+        pickSkill(['securing-applications', 'security']) || '.agents/skills/securing-applications/SKILL.md',
+        fs.existsSync(path.join(workspaceRoot, '.agents/rules/security.md')) ? '.agents/rules/security.md' : '.ai/context/coding-rules.md'
       ].filter(f => fs.existsSync(path.join(workspaceRoot, f)))
     },
     testing: {
       description: 'Test execution, suites and coverage rules',
       files: [
-        discoveredSkills['testing'] || '.ai/skills/testing/SKILL.md',
-        '.ai/context/coding-rules.md'
+        pickSkill(['testing-software', 'testing']) || '.agents/skills/testing-software/SKILL.md',
+        pickSkill(['verifying-changes', 'verification']) || '.agents/skills/verifying-changes/SKILL.md',
+        fs.existsSync(path.join(workspaceRoot, '.agents/rules/coding-rules.md')) ? '.agents/rules/coding-rules.md' : '.ai/context/coding-rules.md'
       ].filter(f => fs.existsSync(path.join(workspaceRoot, f)))
     },
     planning: {
       description: 'Planning, architecture and PRD requirements',
       files: [
-        discoveredSkills['planning'] || '.ai/skills/planning/SKILL.md',
-        discoveredSkills['architecture'] || '.ai/skills/architecture/SKILL.md',
-        '.ai/context/architecture-rules.md',
-        '.ai/context/tech-stack.md',
+        pickSkill(['planning']) || '.agents/skills/planning/SKILL.md',
+        pickSkill(['analyzing-prd', 'prd-analysis']) || '.agents/skills/analyzing-prd/SKILL.md',
+        pickSkill(['designing-architecture', 'architecture']) || '.agents/skills/designing-architecture/SKILL.md',
+        fs.existsSync(path.join(workspaceRoot, '.agents/rules/architecture-rules.md')) ? '.agents/rules/architecture-rules.md' : '.ai/context/architecture-rules.md',
+        fs.existsSync(path.join(workspaceRoot, '.agents/rules/tech-stack.md')) ? '.agents/rules/tech-stack.md' : '.ai/context/tech-stack.md',
         'doc/prd.md'
       ].filter(f => fs.existsSync(path.join(workspaceRoot, f)))
     },
     review: {
       description: 'Code review and verification guidelines',
       files: [
-        discoveredSkills['code-review'] || '.ai/skills/code-review/SKILL.md',
-        discoveredSkills['verification'] || '.ai/skills/verification/SKILL.md',
-        '.ai/context/coding-rules.md',
-        '.ai/context/architecture-rules.md'
+        pickSkill(['reviewing-code', 'code-review']) || '.agents/skills/reviewing-code/SKILL.md',
+        pickSkill(['verifying-changes', 'verification']) || '.agents/skills/verifying-changes/SKILL.md',
+        fs.existsSync(path.join(workspaceRoot, '.agents/rules/coding-rules.md')) ? '.agents/rules/coding-rules.md' : '.ai/context/coding-rules.md',
+        fs.existsSync(path.join(workspaceRoot, '.agents/rules/architecture-rules.md')) ? '.agents/rules/architecture-rules.md' : '.ai/context/architecture-rules.md'
       ].filter(f => fs.existsSync(path.join(workspaceRoot, f)))
     },
     deployment: {
       description: 'Deployment, containers and infrastructure rules',
       files: [
-        discoveredSkills['deployment'] || '.ai/skills/deployment/SKILL.md',
-        discoveredSkills['docker'] || '.ai/skills/docker/SKILL.md',
-        '.ai/context/tech-stack.md'
+        pickSkill(['deploying-software', 'deployment']) || '.agents/skills/deploying-software/SKILL.md',
+        fs.existsSync(path.join(workspaceRoot, '.agents/rules/tech-stack.md')) ? '.agents/rules/tech-stack.md' : '.ai/context/tech-stack.md'
       ].filter(f => fs.existsSync(path.join(workspaceRoot, f)))
     },
     'bug-fix': {
       description: 'Bug debugging and regression context',
       files: [
-        discoveredSkills['bug-fix'] || '.ai/skills/bug-fix/SKILL.md',
-        discoveredSkills['debugging'] || '.ai/skills/debugging/SKILL.md',
-        discoveredSkills['testing'] || '.ai/skills/testing/SKILL.md',
-        '.ai/context/coding-rules.md'
+        pickSkill(['debugging-software', 'debugging', 'bug-fix']) || '.agents/skills/debugging-software/SKILL.md',
+        pickSkill(['testing-software', 'testing']) || '.agents/skills/testing-software/SKILL.md',
+        fs.existsSync(path.join(workspaceRoot, '.agents/rules/coding-rules.md')) ? '.agents/rules/coding-rules.md' : '.ai/context/coding-rules.md'
+      ].filter(f => fs.existsSync(path.join(workspaceRoot, f)))
+    },
+    evaluation: {
+      description: 'Independent evaluation and outcome grading context',
+      files: [
+        pickSkill(['evaluating-results']) || '.agents/skills/evaluating-results/SKILL.md',
+        pickSkill(['verifying-changes', 'verification']) || '.agents/skills/verifying-changes/SKILL.md'
       ].filter(f => fs.existsSync(path.join(workspaceRoot, f)))
     }
   };

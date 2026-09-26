@@ -150,7 +150,7 @@ function testMultiProject() {
 
     // Verify main state is unpolluted
     const mainState = JSON.parse(fs.readFileSync(path.join(workspaceRoot, '.ai/state/project.json'), 'utf8'));
-    assert(mainState.name === 'SaaS AI Factory', 'Main workspace state remains unpolluted');
+    assert(mainState.name === 'AI Engineering Workflow' || mainState.name === 'SaaS AI Factory', 'Main workspace state remains unpolluted');
 
   } finally {
     fs.writeFileSync(registryPath, originalRegistry);

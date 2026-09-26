@@ -33,6 +33,8 @@ function log(msg, color = colors.reset) {
 
 const tasksPath = path.join(__dirname, '../state/tasks.json');
 
+const { writeJsonAtomic, appendEvent } = require('./state-io');
+
 function loadTasks() {
   if (!fs.existsSync(tasksPath)) {
     log('No tasks.json found at ' + tasksPath, colors.red);
@@ -46,10 +48,9 @@ function loadTasks() {
   }
 }
 
-function saveTasks(data) {
-  data.lastUpdated = new Date().toISOString();
-  fs.writeFileSync(tasksPath, JSON.stringify(data, null, 2));
-  log('Tasks saved successfully.', colors.green);
+function saveTasks(data, expectedRevision = null) {
+  writeJsonAtomic(tasksPath, data, expectedRevision);
+  log(`Tasks saved atomically (revision ${data.revision}).`, colors.green);
 }
 
 // ─── Validation ───
